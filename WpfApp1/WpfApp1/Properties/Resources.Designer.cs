@@ -59,5 +59,52 @@ namespace WpfApp1.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap load2 {
+            get {
+                object obj = ResourceManager.GetObject("load2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap loader {
+            get {
+                object obj = ResourceManager.GetObject("loader", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap pizzapage {
+            get {
+                object obj = ResourceManager.GetObject("pizzapage", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à &lt;html&gt;
+        ///    &lt;head&gt;
+        ///        &lt;title&gt;bout de page&lt;/title&gt;
+        ///    &lt;/head&gt;
+        ///
+        ///    &lt;body&gt;
+        ///        &lt;h1&gt;Bine jouer&lt;/h1&gt;
+        ///    &lt;/body&gt;
+        ///&lt;/html&gt;.
+        /// </summary>
+        internal static string pizzapage1 {
+            get {
+                return ResourceManager.GetString("pizzapage1", resourceCulture);
+            }
+        }
     }
 }

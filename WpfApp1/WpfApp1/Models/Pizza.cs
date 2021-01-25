@@ -6,13 +6,60 @@ using System.Threading.Tasks;
 
 namespace WpfApp1.Models
 {
+    public class Ingredient
+    {
+        private String nom;
+        private double quantite;
+
+        public String Nom
+        {
+            get { return nom; }
+            set { nom = value; }
+        }
+        public double Quantite
+        {
+            get { return quantite; }
+            set { quantite = value; }
+        }
+
+        public Ingredient(String nom, double quantite)
+        {
+            this.nom = nom;
+            this.quantite = quantite;
+        }
+
+    }
+
+    public class PrixDetaille
+    {
+        private String nom;
+        private double prix;
+
+        public String Nom
+        {
+            get { return nom; }
+            set { nom = value; }
+        }
+        public double Prix
+        {
+            get { return prix; }
+            set { prix = value; }
+        }
+
+        public PrixDetaille(String nom, double prix)
+        {
+            this.nom = nom;
+            this.prix = prix;
+        }
+
+    }
     class Pizza
     {
         private String nom;
-        private Dictionary<String, int> ingrediant;
+        private List<Ingredient> ingrediant;
         private String type;
         private String image;
-        private Dictionary<String, double> prix;
+        private List<PrixDetaille> prix;
 
         public String Nom
         {
@@ -20,7 +67,7 @@ namespace WpfApp1.Models
             set { nom = value;  }
         }
 
-        public Dictionary<String, double> Prix
+        public List<PrixDetaille> Prix
         {
             get { return prix; }
             set { prix = value; }
@@ -36,7 +83,7 @@ namespace WpfApp1.Models
             set { image = value; }
         }
 
-        public Dictionary<String, int> Ingredient
+        public List<Ingredient> Ingredient
         {
             get { return ingrediant; }
             set { ingrediant = value; }
@@ -50,9 +97,9 @@ namespace WpfApp1.Models
 
         public Pizza(String nom, String type)
         {
-            ingrediant = new Dictionary<String, int>();
+            ingrediant = new List<Ingredient>();
             this.nom = nom;
-            this.prix = new Dictionary<String, double>();
+            this.prix = new List<PrixDetaille>();
             this.type = type;
         }
 

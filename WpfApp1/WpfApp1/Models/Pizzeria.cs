@@ -49,6 +49,14 @@ namespace WpfApp1.Models
             this.nom = nom;
         }
 
+        public Pizzeria(String nom, String siteweb, List<Pizza> l)
+        {
+            this.emplacement = new double[2];
+            this.siteWeb = siteweb;
+            this.Lpizza = l;
+            this.nom = nom;
+        }
+
         public Pizzeria()
         {
             this.Lpizza = new List<Pizza>();
@@ -160,24 +168,20 @@ namespace WpfApp1.Models
                     String ingredient = Convert.ToString(js.ExecuteScript("return document.getElementsByClassName('mainProd')[" + vc + "].getElementsByTagName('p')[0].textContent"));
 
                     String[] Lingredient = ingredient.Split(',');
-                    Dictionary<String, int> ingrediant = new Dictionary<String, int>();
+                        List<Ingredient> ingrediant = new List<Ingredient>();
                     String cs = "";
                     foreach (String hy in Lingredient)
                     {
                         cs += hy.Replace(".", "") + "-";
-                        ingrediant.Add(hy.Replace(".", ""), 1);
+                        ingrediant.Add(new Ingredient(hy.Replace(".", ""),1));
                     }
                     int nbrOption = Convert.ToInt32(js.ExecuteScript("return document.getElementsByClassName('mainProd')[" + vc + "].getElementsByTagName('option').length"));
-                    Dictionary<String, double> prix = new Dictionary<String, double>();
+                        List<PrixDetaille> prix = new List<PrixDetaille>();
                     for (int ij = 0; ij < nbrOption; ij++)
                     {
                         String px = Convert.ToString(js.ExecuteScript("return document.getElementsByClassName('mainProd')[" + vc + "].getElementsByTagName('option')[" + ij + "].textContent")).Replace("\n", "").Replace("\n", "").Replace(" ", "");
                         String[] tab = px.Split(':');
-                        if (!prix.ContainsKey(tab[0]))
-                        {
-                            prix.Add(tab[0], Convert.ToDouble(tab[1].Substring(0, tab[1].Length - 1).Replace(".", ",")));
-
-                        }
+                            prix.Add(new PrixDetaille(tab[0], Convert.ToDouble(tab[1].Substring(0, tab[1].Length - 1).Replace(".", ","))));
                     }
 
 
@@ -209,24 +213,20 @@ namespace WpfApp1.Models
                         String ingredient = Convert.ToString(js.ExecuteScript("return document.getElementsByClassName('mainProd')[" + vc + "].getElementsByTagName('p')[0].textContent"));
 
                         String[] Lingredient = ingredient.Split(',');
-                        Dictionary<String, int> ingrediant = new Dictionary<String, int>();
+                        List<Ingredient> ingrediant = new List<Ingredient>();
                         String cs = "";
                         foreach (String hy in Lingredient)
                         {
                             cs += hy.Replace(".", "") + "-";
-                            ingrediant.Add(hy.Replace(".", ""), 1);
+                            ingrediant.Add(new Ingredient(hy.Replace(".", ""), 1));
                         }
                         int nbrOption = Convert.ToInt32(js.ExecuteScript("return document.getElementsByClassName('mainProd')[" + vc + "].getElementsByTagName('option').length"));
-                        Dictionary<String, double> prix = new Dictionary<String, double>();
+                        List<PrixDetaille> prix = new List<PrixDetaille>();
                         for (int ij = 0; ij < nbrOption; ij++)
                         {
                             String px = Convert.ToString(js.ExecuteScript("return document.getElementsByClassName('mainProd')[" + vc + "].getElementsByTagName('option')[" + ij + "].textContent")).Replace("\n", "").Replace("\n", "").Replace(" ", "");
                             String[] tab = px.Split(':');
-                            if (!prix.ContainsKey(tab[0]))
-                            {
-                                prix.Add(tab[0], Convert.ToDouble(tab[1].Substring(0, tab[1].Length - 1).Replace(".", ",")));
-
-                            }
+                            prix.Add(new PrixDetaille(tab[0], Convert.ToDouble(tab[1].Substring(0, tab[1].Length - 1).Replace(".", ","))));
                         }
 
 
@@ -323,24 +323,20 @@ namespace WpfApp1.Models
                         String ingredient = Convert.ToString(js.ExecuteScript("return document.getElementsByClassName('mainProd')[" + vc + "].getElementsByTagName('p')[0].textContent"));
 
                         String[] Lingredient = ingredient.Split(',');
-                        Dictionary<String, int> ingrediant = new Dictionary<String, int>();
+                        List<Ingredient> ingrediant = new List<Ingredient>();
                         String cs = "";
                         foreach (String hy in Lingredient)
                         {
                             cs += hy.Replace(".", "") + "-";
-                            ingrediant.Add(hy.Replace(".", ""), 1);
+                            ingrediant.Add(new Ingredient(hy.Replace(".", ""), 1));
                         }
                         int nbrOption = Convert.ToInt32(js.ExecuteScript("return document.getElementsByClassName('mainProd')[" + vc + "].getElementsByTagName('option').length"));
-                        Dictionary<String, double> prix = new Dictionary<String, double>();
+                        List<PrixDetaille> prix = new List<PrixDetaille>();
                         for (int ij = 0; ij < nbrOption; ij++)
                         {
                             String px = Convert.ToString(js.ExecuteScript("return document.getElementsByClassName('mainProd')[" + vc + "].getElementsByTagName('option')[" + ij + "].textContent")).Replace("\n", "").Replace("\n", "").Replace(" ", "");
                             String[] tab = px.Split(':');
-                            if (!prix.ContainsKey(tab[0]))
-                            {
-                                prix.Add(tab[0], Convert.ToDouble(tab[1].Substring(0, tab[1].Length - 1).Replace(".", ",")));
-
-                            }
+                            prix.Add(new PrixDetaille(tab[0], Convert.ToDouble(tab[1].Substring(0, tab[1].Length - 1).Replace(".", ","))));
                         }
 
 
@@ -372,24 +368,20 @@ namespace WpfApp1.Models
                         String ingredient = Convert.ToString(js.ExecuteScript("return document.getElementsByClassName('mainProd')[" + vc + "].getElementsByTagName('p')[0].textContent"));
 
                         String[] Lingredient = ingredient.Split(',');
-                        Dictionary<String, int> ingrediant = new Dictionary<String, int>();
+                        List<Ingredient> ingrediant = new List<Ingredient>();
                         String cs = "";
                         foreach (String hy in Lingredient)
                         {
                             cs += hy.Replace(".", "") + "-";
-                            ingrediant.Add(hy.Replace(".", ""), 1);
+                            ingrediant.Add(new Ingredient(hy.Replace(".", ""), 1));
                         }
                         int nbrOption = Convert.ToInt32(js.ExecuteScript("return document.getElementsByClassName('mainProd')[" + vc + "].getElementsByTagName('option').length"));
-                        Dictionary<String, double> prix = new Dictionary<String, double>();
+                        List<PrixDetaille> prix = new List<PrixDetaille>();
                         for (int ij = 0; ij < nbrOption; ij++)
                         {
                             String px = Convert.ToString(js.ExecuteScript("return document.getElementsByClassName('mainProd')[" + vc + "].getElementsByTagName('option')[" + ij + "].textContent")).Replace("\n", "").Replace("\n", "").Replace(" ", "");
                             String[] tab = px.Split(':');
-                            if (!prix.ContainsKey(tab[0]))
-                            {
-                                prix.Add(tab[0], Convert.ToDouble(tab[1].Substring(0, tab[1].Length - 1).Replace(".", ",")));
-
-                            }
+                            prix.Add(new PrixDetaille(tab[0], Convert.ToDouble(tab[1].Substring(0, tab[1].Length - 1).Replace(".", ","))));
                         }
 
 

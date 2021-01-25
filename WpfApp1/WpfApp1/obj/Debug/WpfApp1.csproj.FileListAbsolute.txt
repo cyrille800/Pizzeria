@@ -17,3 +17,12 @@ D:\cours\programmation poo avance\projet\UserPizzeria\WpfApp1\WpfApp1\obj\Debug\
 D:\cours\programmation poo avance\projet\UserPizzeria\WpfApp1\WpfApp1\bin\Debug\WebDriver.dll
 D:\cours\programmation poo avance\projet\UserPizzeria\WpfApp1\WpfApp1\bin\Debug\WebDriver.xml
 D:\cours\programmation poo avance\projet\UserPizzeria\WpfApp1\WpfApp1\obj\Debug\WpfApp1.csproj.CopyComplete
+D:\cours\programmation poo avance\projet\UserPizzeria\WpfApp1\WpfApp1\obj\Debug\LoadPage.g.cs
+D:\cours\programmation poo avance\projet\UserPizzeria\WpfApp1\WpfApp1\obj\Debug\LoadPage.baml
+D:\cours\programmation poo avance\projet\UserPizzeria\WpfApp1\WpfApp1\bin\Debug\WpfAnimatedGif.dll
+D:\cours\programmation poo avance\projet\UserPizzeria\WpfApp1\WpfApp1\bin\Debug\WpfAnimatedGif.pdb
+D:\cours\programmation poo avance\projet\UserPizzeria\WpfApp1\WpfApp1\bin\Debug\WpfAnimatedGif.xml
+D:\cours\programmation poo avance\projet\UserPizzeria\WpfApp1\WpfApp1\bin\Debug\Newtonsoft.Json.dll
+D:\cours\programmation poo avance\projet\UserPizzeria\WpfApp1\WpfApp1\bin\Debug\Newtonsoft.Json.xml
+D:\cours\programmation poo avance\projet\UserPizzeria\WpfApp1\WpfApp1\obj\Debug\PizzaPage.g.cs
+D:\cours\programmation poo avance\projet\UserPizzeria\WpfApp1\WpfApp1\obj\Debug\PizzaPage.baml
