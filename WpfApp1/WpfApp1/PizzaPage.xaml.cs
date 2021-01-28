@@ -42,8 +42,9 @@ namespace WpfApp1
                 MessageBox.Show(message);
             }
 
-            public void AddPanier(String id)
+            public void AddPanier(String id,String qte,String taille,String prix)
             {
+                PrixDetaille pd = new PrixDetaille(taille, Convert.ToDouble(prix.Replace(".",",")));
                 Pizza p = new Pizza();
                 foreach (Pizzeria pizzzeriia in Cata.Catalogue)
                 {
@@ -52,12 +53,19 @@ namespace WpfApp1
                         if (pizza.Id == Convert.ToInt32(id))
                         {
                             p = pizza;
+                            p.Prix.RemoveAll(x => true);
+                            p.Prix.Add(pd);
                         }
                     }
                 }
 
-                // permet d'utiliser les notification systeme Install - Package Microsoft.Toolkit.Uwp.Notifications - Version 6.1.1
-                MessageBox.Show(p.Nom);
+                PizzaCommande pc = new PizzaCommande(p, Convert.ToInt32(qte));
+                Panier.AjouterPizzaCommande(pc);
+            }
+
+            public void AddPanierModifierValeur(String id, String qte)
+            {
+                Panier.Modifierpanier(Convert.ToInt32(id), Convert.ToInt32(qte));
             }
 
             public void startLoadPagePizza()
@@ -111,6 +119,31 @@ namespace WpfApp1
             {
                 string json = r.ReadToEnd();
                 lP = JsonConvert.DeserializeObject<List<Pizzeria>>(json);
+                List<Pizzeria> lPC = new List<Pizzeria>();
+
+                //permet de verifier ceux qui ont déja été choisi
+                foreach (Pizzeria p in lP)
+                {
+                    int i = 0;
+                    foreach (Pizza pizza in p.LPizza)
+                    {
+                        PizzaCommande pizzaCommande = Panier.RechercherPizzaPanier(pizza.Id);
+                        if (pizzaCommande != null)
+                        {
+                            if (pizzaCommande != null)
+                            {
+                                pizza.Nom = p.LPizza[pizza.Id].Nom + "||" + pizzaCommande.Qte + "||" + pizzaCommande.Prix[0].Nom;
+                            }
+                        }
+
+                        i++;
+                    }
+                    lPC.Add(p);
+                }
+
+                json=JsonConvert.SerializeObject(lPC.ToArray());
+
+
                 foreach (Pizzeria p in lP)
                 {
                     Cata.AjouterPizzeria(p);

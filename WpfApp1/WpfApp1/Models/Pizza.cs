@@ -56,12 +56,12 @@ namespace WpfApp1.Models
     }
     class Pizza
     {
-        private String nom;
-        private List<Ingredient> ingrediant;
-        private String type;
-        private String image;
-        private List<PrixDetaille> prix;
-        private int id;
+        protected String nom;
+        protected List<Ingredient> ingrediant;
+        protected String type;
+        protected String image;
+        protected List<PrixDetaille> prix;
+        protected int id;
 
 
         public int Id
@@ -109,6 +109,16 @@ namespace WpfApp1.Models
             ingrediant = new List<Ingredient>();
             this.nom = nom;
             this.prix = new List<PrixDetaille>();
+            this.type = type;
+            this.id = id;
+        }
+
+        public Pizza(String nom, String type, int id,String image, List<Ingredient> ingrediant, List<PrixDetaille> prix)
+        {
+            this.ingrediant = ingrediant;
+            this.nom = nom;
+            this.image = image;
+            this.prix = prix;
             this.type = type;
             this.id = id;
         }
