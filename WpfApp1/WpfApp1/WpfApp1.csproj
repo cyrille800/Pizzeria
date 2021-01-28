@@ -93,9 +93,9 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\CataloguePizzeria.cs" />
     <Compile Include="Models\Pizza.cs" />
     <Compile Include="Models\Pizzeria.cs" />
-    <Compile Include="ObjectForScriptingHelper.cs" />
     <Compile Include="PizzaPage.xaml.cs">
       <DependentUpon>PizzaPage.xaml</DependentUpon>
     </Compile>
@@ -123,7 +123,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="CustomControls\" />

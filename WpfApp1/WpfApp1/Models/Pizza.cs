@@ -16,6 +16,7 @@ namespace WpfApp1.Models
             get { return nom; }
             set { nom = value; }
         }
+
         public double Quantite
         {
             get { return quantite; }
@@ -60,11 +61,19 @@ namespace WpfApp1.Models
         private String type;
         private String image;
         private List<PrixDetaille> prix;
+        private int id;
+
+
+        public int Id
+        {
+            get { return id; }
+            set { id = value; }
+        }
 
         public String Nom
         {
             get { return nom; }
-            set { nom = value;  }
+            set { nom = value; }
         }
 
         public List<PrixDetaille> Prix
@@ -95,12 +104,13 @@ namespace WpfApp1.Models
             set { type = value; }
         }
 
-        public Pizza(String nom, String type)
+        public Pizza(String nom, String type, int id)
         {
             ingrediant = new List<Ingredient>();
             this.nom = nom;
             this.prix = new List<PrixDetaille>();
             this.type = type;
+            this.id = id;
         }
 
     }

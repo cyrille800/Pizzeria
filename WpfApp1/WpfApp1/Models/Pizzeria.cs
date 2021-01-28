@@ -41,7 +41,7 @@ namespace WpfApp1.Models
             set { Lpizza = value; }
         }
 
-        public Pizzeria(String nom,String siteweb)
+        public Pizzeria(String nom, String siteweb)
         {
             this.emplacement = new double[2];
             this.siteWeb = siteweb;
@@ -64,15 +64,6 @@ namespace WpfApp1.Models
         }
 
 
-
-
-        public delegate Pizzeria WebSiteScrapping();
-
-        public Pizzeria Scrapping(WebSiteScrapping w)
-        {
-            return w();
-        }
-
         public void AjouterPizza(Pizza p)
         {
             Lpizza.Add(p);
@@ -81,9 +72,9 @@ namespace WpfApp1.Models
         public Boolean CheckPizza(Pizza p)
         {
 
-            foreach(Pizza d in Lpizza)
+            foreach (Pizza d in Lpizza)
             {
-                if(d.Nom == p.Nom)
+                if (d.Nom == p.Nom)
                 {
                     return false;
                 }
@@ -91,7 +82,7 @@ namespace WpfApp1.Models
             return false;
         }
 
-        public static Pizzeria ItalianoPizza()
+        public static Pizzeria ItalianoPizza(int pizzaActif)
         {
             Pizzeria p = new Pizzeria();
             p.Nom = "Italiano pizza";
@@ -120,14 +111,14 @@ namespace WpfApp1.Models
             IWebElement elt = driver.FindElement(By.Name("choix_ville"));
             String c = "";
             int i = 0;
-            
+
             // ici je parcours l'ensemble des zones proposé par le site
             foreach (IWebElement element in elt.FindElements(By.TagName("option")))
             {
                 if (i != 0)
                 {
                     villes.Add(element.Text);
-                    c += element.Text+"\n";
+                    c += element.Text + "\n";
                 }
                 i++;
             }
@@ -135,7 +126,7 @@ namespace WpfApp1.Models
             // & pour chaque zone je fais ca ville = zone
             foreach (String tmp in villes)
             {
-                
+
                 driver.Url = "https://www.italiano-pizza.fr/index";
                 driver.Navigate();
                 IWebElement eltc = driver.FindElement(By.Name("choix_ville"));
@@ -153,44 +144,46 @@ namespace WpfApp1.Models
                 IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
 
                 // je récupère l'ensemble des pizzas de la page de type pizza tomage
-                int b=Convert.ToInt32(js.ExecuteScript("return document.getElementsByClassName('papersheet').length"));
-                    
+                int b = Convert.ToInt32(js.ExecuteScript("return document.getElementsByClassName('papersheet').length"));
+
                 #region obtention dse informations des pizzas
                 for (int vc = 0; vc < b; vc++)
-                    {
+                {
                     js.ExecuteScript("return document.getElementsByClassName('papersheet')[" + vc + "].className+='opened'");
                     Pizza piz = new Pizza();
+                    piz.Id = pizzaActif;
                     piz.Nom = Convert.ToString(js.ExecuteScript("return document.getElementsByClassName('mainProd')[" + vc + "].getElementsByTagName('h2')[0].textContent"));
-                    if (!p.CheckPizza(piz)) { 
+                    if (!p.CheckPizza(piz))
+                    {
 
                         piz.Image = Convert.ToString(js.ExecuteScript("return document.getElementsByClassName('mainProd')[" + vc + "].getElementsByTagName('img')[0].src"));
 
-                    String ingredient = Convert.ToString(js.ExecuteScript("return document.getElementsByClassName('mainProd')[" + vc + "].getElementsByTagName('p')[0].textContent"));
+                        String ingredient = Convert.ToString(js.ExecuteScript("return document.getElementsByClassName('mainProd')[" + vc + "].getElementsByTagName('p')[0].textContent"));
 
-                    String[] Lingredient = ingredient.Split(',');
+                        String[] Lingredient = ingredient.Split(',');
                         List<Ingredient> ingrediant = new List<Ingredient>();
-                    String cs = "";
-                    foreach (String hy in Lingredient)
-                    {
-                        cs += hy.Replace(".", "") + "-";
-                        ingrediant.Add(new Ingredient(hy.Replace(".", ""),1));
-                    }
-                    int nbrOption = Convert.ToInt32(js.ExecuteScript("return document.getElementsByClassName('mainProd')[" + vc + "].getElementsByTagName('option').length"));
+                        String cs = "";
+                        foreach (String hy in Lingredient)
+                        {
+                            cs += hy.Replace(".", "") + "-";
+                            ingrediant.Add(new Ingredient(hy.Replace(".", ""), 1));
+                        }
+                        int nbrOption = Convert.ToInt32(js.ExecuteScript("return document.getElementsByClassName('mainProd')[" + vc + "].getElementsByTagName('option').length"));
                         List<PrixDetaille> prix = new List<PrixDetaille>();
-                    for (int ij = 0; ij < nbrOption; ij++)
-                    {
-                        String px = Convert.ToString(js.ExecuteScript("return document.getElementsByClassName('mainProd')[" + vc + "].getElementsByTagName('option')[" + ij + "].textContent")).Replace("\n", "").Replace("\n", "").Replace(" ", "");
-                        String[] tab = px.Split(':');
+                        for (int ij = 0; ij < nbrOption; ij++)
+                        {
+                            String px = Convert.ToString(js.ExecuteScript("return document.getElementsByClassName('mainProd')[" + vc + "].getElementsByTagName('option')[" + ij + "].textContent")).Replace("\n", "").Replace("\n", "").Replace(" ", "");
+                            String[] tab = px.Split(':');
                             prix.Add(new PrixDetaille(tab[0], Convert.ToDouble(tab[1].Substring(0, tab[1].Length - 1).Replace(".", ","))));
+                        }
+
+
+                        piz.Ingredient = ingrediant;
+                        piz.Prix = prix;
+                        piz.Type = "Pizza tomate";
+                        p.AjouterPizza(piz);
                     }
-
-
-                    piz.Ingredient = ingrediant;
-                    piz.Prix = prix;
-                    piz.Type = "Pizza tomate";
-                    p.AjouterPizza(piz);
-                }
-
+                    pizzaActif++;
                 }
                 #endregion
 
@@ -204,6 +197,7 @@ namespace WpfApp1.Models
                 {
                     js.ExecuteScript("return document.getElementsByClassName('papersheet')[" + vc + "].className+='opened'");
                     Pizza piz = new Pizza();
+                    piz.Id = pizzaActif;
                     piz.Nom = Convert.ToString(js.ExecuteScript("return document.getElementsByClassName('mainProd')[" + vc + "].getElementsByTagName('h2')[0].textContent"));
                     if (!p.CheckPizza(piz))
                     {
@@ -235,7 +229,7 @@ namespace WpfApp1.Models
                         piz.Type = "Pizza creme";
                         p.AjouterPizza(piz);
                     }
-
+                    pizzaActif++;
                 }
                 #endregion
             }
@@ -245,7 +239,7 @@ namespace WpfApp1.Models
         }
 
 
-        public static Pizzeria AlloPizza()
+        public static Pizzeria AlloPizza(int pizzaActif = 0)
         {
             Pizzeria p = new Pizzeria();
             p.Nom = "Allo pizza";
@@ -314,6 +308,7 @@ namespace WpfApp1.Models
                 {
                     js.ExecuteScript("return document.getElementsByClassName('papersheet')[" + vc + "].className+='opened'");
                     Pizza piz = new Pizza();
+                    piz.Id = pizzaActif;
                     piz.Nom = Convert.ToString(js.ExecuteScript("return document.getElementsByClassName('mainProd')[" + vc + "].getElementsByTagName('h2')[0].textContent"));
                     if (!p.CheckPizza(piz))
                     {
@@ -345,7 +340,7 @@ namespace WpfApp1.Models
                         piz.Type = "Pizza tomate";
                         p.AjouterPizza(piz);
                     }
-
+                    pizzaActif++;
                 }
                 #endregion
 
@@ -359,6 +354,7 @@ namespace WpfApp1.Models
                 {
                     js.ExecuteScript("return document.getElementsByClassName('papersheet')[" + vc + "].className+='opened'");
                     Pizza piz = new Pizza();
+                    piz.Id = pizzaActif;
                     piz.Nom = Convert.ToString(js.ExecuteScript("return document.getElementsByClassName('mainProd')[" + vc + "].getElementsByTagName('h2')[0].textContent"));
                     if (!p.CheckPizza(piz))
                     {
@@ -390,7 +386,7 @@ namespace WpfApp1.Models
                         piz.Type = "Pizza creme";
                         p.AjouterPizza(piz);
                     }
-
+                    pizzaActif++;
                 }
                 #endregion
             }

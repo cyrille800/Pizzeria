@@ -6,7 +6,6 @@
 
         <meta charset="UTF-8">
 
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
 
         <meta name="format-detection" content="telephone=no"/>
 
@@ -130,11 +129,12 @@ Sorry, this product is unavailable. Please choose a different combination.</p>
 
         <div class="l-section__content l-section__content--with-sidebar">
 
-            <div class=" js-sticky-sidebar-nearby ">
+            <div class=" js-sticky-sidebar-nearby " style="width:150%;">
 
-        <button id="bouttonNext" valueStart="0" style="margin-top:5%;margin-left:110%;width:25%;" href="https://parkofideas.com/foodz/demo2/checkout/" class="c-form__button checkout-button button alt wc-forward">
+        <button id="bouttonNext" valueStart="0" style="margin-top:2%;margin-left:70%;width:20%;" href="https://parkofideas.com/foodz/demo2/checkout/" class="c-form__button checkout-button button alt wc-forward">
             Next page <i class='fas fa-arrow-right' style='font-size: 20px;color : white' ></i></button>
-         <div class="c-product-grid"  style="margin-top:5%;width:150%;">
+         <div class="c-product-grid"  style="margin-top:5%;margin-left:6%;">
+             <img src="loader.gif" style="margin-left:34%;margin-bottom:30%;" id="imageLoad"/>
 <ul class="c-product-grid__list c-product-grid__list--layout-product-2  columns-3 h-clearfix">
 
     </ul>
@@ -156,101 +156,98 @@ Sorry, this product is unavailable. Please choose a different combination.</p>
         json = "";
         function WriteFromExternals (c) { 
             json = c;
+            returnData(0);
         }
 
         function returnData(start){
             const obj = JSON.parse(json);
             data="";
              o = 0;
-            for(var i= 0; i < obj.length; i++)
-{
-    
-    for(var j= 0; j < obj[i].LPizza.length; j++)
-    {
-        fin = 0;
-        if(start==0){
-            fin = 7;
-        }else{
-            fin = start+7;
-        }
+             setTimeout(function(){
+                for(var i= 0; i < obj.length; i++)
+                {
+                    
+                    for(var j= 0; j < obj[i].LPizza.length; j++)
+                    {
+                        fin = 0;
+                        if(start==0){
+                            fin = 7;
+                        }else{
+                            fin = start+7;
+                        }
+                
+                        if(o<=fin && o>=start){
+                        ImagePizza = obj[i].LPizza[j].Image
+                        nomPizza = obj[i].LPizza[j].Nom
+                        typePizza = obj[i].LPizza[j].Type
+                        imageTypePizza ="";
+                        if(typePizza.trim().toLowerCase()=="pizza tomate") {
+                            imageTypePizza="data:image/png;base64,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"
+                        }else{
+                            imageTypePizza ="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-L35YnpczXF7zoPDA9ens-IT3QmDsBplSNQ&usqp=CAU";
+                        }
+                        NumeroPizza = obj[i].LPizza[j].Id;
+                        listeIngredient ="";
+                        
+                        for(var a= 0; a < obj[i].LPizza[j].Ingredient.length; a++)
+                    {
+                        listeIngredient +="("+obj[i].LPizza[j].Ingredient[a].Quantite+")"+" "+obj[i].LPizza[j].Ingredient[a].Nom+"<br>";
+                    }
+                        descriptionPizza = "Provenance "+obj[i].Nom;
+                        listeTaillePrix ="";
+                        prix="";
+                     for(a= 0; a < obj[i].LPizza[j].Prix.length; a++)
+                    {
+                        listeTaillePrix +="<li prix='"+obj[i].LPizza[j].Prix[a].Prix+"' class='c-variation__val prix' valueid='"+NumeroPizza+"'><label><input class='h-cb c-variation__radio attached enabled' type='radio' name='attribute_pa_size' value='"+obj[i].LPizza[j].Prix[a].Nom+"'";
+                            if(a==0){
+                                prix = obj[i].LPizza[j].Prix[a].Prix
+                                listeTaillePrix+="checked='checked'"
+                            }
+                
+                            listeTaillePrix+="><span class='c-variation__title '>"+obj[i].LPizza[j].Prix[a].Nom+"</span></label></li>"
+                
+                    }
+                
+                        dataGlobal ="<li class='c-product-grid__item c-product-grid__item--layout-product-2 product type-product post-138 status-publish first instock product_cat-pizza has-post-thumbnail shipping-taxable purchasable product-type-variable has-default-attributes'><div class='c-product-grid__item-wrap c-product-grid__item-wrap--layout-product-2'><div class='c-product-grid__thumb-wrap c-product-grid__thumb-wrap--layout-product-2'><a href='#'><div class='c-badge__list c-product-grid__badges c-product-grid__badges--layout-product-2'></div><img src='"+ImagePizza+"' data-src='"+ImagePizza+"' alt='Pizza Bianca' class='c-product-grid__thumb c-product-grid__thumb--layout-product-2 lazyloaded'></a></div><div class='c-product-grid__details c-product-grid__details--layout-product-2'><div class='c-product-grid__title'><a class='c-product-grid__title-link' href='#'>"+nomPizza+"</a></div><div class='c-markers c-product-grid__markers'><span class='c-markers__wrap c-product-grid__marker js-marker'><span class='c-markers__title'>"+typePizza+"</span><img class='c-markers__icon' src='"+imageTypePizza+"' alt='"+typePizza+"'></span><span class='c-markers__wrap c-product-grid__marker'><span class='c-markers__title'>Ingrediant</span><button class='h-cb h-cb--svg c-product-grid__marker-info-icon js-extra-info bouttonpizza' type='button' id='"+NumeroPizza+"'><i class='fas fa-info-circle' style='font-size: 20px;color : #062D6D' ></i></button></span></div><div class='c-product-grid__marker-popup c-product-grid__marker-popup--layout-product-2 js-extra-info-popup pizza"+NumeroPizza+"'><i class='fas fa-window-close closeWinid' Valueid='"+NumeroPizza+"' style='font-size: 20px;color : white;cursor:pointer;margin-left:85%;' ></i><br>"+listeIngredient+"</div><div class='c-product-grid__marker-popup-text'></div></div><div class='c-product-grid__short-desc'><p>"+descriptionPizza+"</p></div><form class='c-variation__form js-variations-form'><div class='c-variation__wrap variations'><ul class='c-variation js-variation' data-attribute_name='attribute_pa_size' data-show_option_none='no'>"+listeTaillePrix+"</ul></div><div class='c-variation__single single_variation_wrap'><div class='c-variation__single-info single_variation'><div class='woocommerce-variation-description'></div><div class='woocommerce-variation-price'><span class='price'><span class='woocommerce-Price-amount amount'><bdi><span class='woocommerce-Price-currencySymbol'>€</span><span class='uprix"+NumeroPizza+"'>"+prix+"</span></bdi></span></span></div><div class='woocommerce-variation-availability'></div></div><div class='woocommerce-variation-add-to-cart variations_button woocommerce-variation-add-to-cart-enabled'><div data-quantity='1' class='c-add-to-cart c-product-grid__add-to-cart single_add_to_cart_button js-add-to-cart-variation'  valueid='"+NumeroPizza+"' data-product_id='138' data-product_sku='' aria-label='Select options for “Pizza Bianca”' rel='nofollow'><i class='fa fa-shopping-cart' aria-hidden='true'></i>Add to cart</div><input type='hidden' name='quantity' class='qty' value='1'><span class='added_to_cart h-hidden'></span></div></div></form><div class='c-product-grid__quantity-wrap'><div class='c-quantity js-product-grid-quantity'></div></div></div></li>";
+                        data+=dataGlobal;    
+                    }
+                    o++;
+                }
+                }       
+                $("#imageLoad").hide()
+                document.getElementsByClassName("c-product-grid__list c-product-grid__list--layout-product-2  columns-3 h-clearfix")[0].innerHTML = data; 
+              
+                            // Méthode de chaque élément
 
-        if(o<=fin && o>=start){
-        ImagePizza = obj[i].LPizza[j].Image
-        nomPizza = obj[i].LPizza[j].Nom
-        typePizza = obj[i].LPizza[j].Type
-        imageTypePizza ="";
-        if(typePizza.trim().toLowerCase()=="pizza tomate") {
-            imageTypePizza="data:image/png;base64,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"
-        }else{
-            imageTypePizza ="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-L35YnpczXF7zoPDA9ens-IT3QmDsBplSNQ&usqp=CAU";
-        }
-        NumeroPizza = o;
-        listeIngredient ="";
-        
-        for(var a= 0; a < obj[i].LPizza[j].Ingredient.length; a++)
-    {
-        listeIngredient +="("+obj[i].LPizza[j].Ingredient[a].Quantite+")"+" "+obj[i].LPizza[j].Ingredient[a].Nom+"<br>";
-    }
-        descriptionPizza = "Provenance "+obj[i].Nom;
-        listeTaillePrix ="";
-        prix="";
-     for(a= 0; a < obj[i].LPizza[j].Prix.length; a++)
-    {
-        listeTaillePrix +="<li prix='"+obj[i].LPizza[j].Prix[a].Prix+"' class='c-variation__val prix' valueid='"+NumeroPizza+"'><label><input class='h-cb c-variation__radio attached enabled' type='radio' name='attribute_pa_size' value='"+obj[i].LPizza[j].Prix[a].Nom+"'";
-            if(a==0){
-                prix = obj[i].LPizza[j].Prix[a].Prix
-                listeTaillePrix+="checked='checked'"
-            }
-
-            listeTaillePrix+="><span class='c-variation__title '>"+obj[i].LPizza[j].Prix[a].Nom+"</span></label></li>"
-
-    }
-
-        dataGlobal ="<li style='margin-right:2%;' class='c-product-grid__item c-product-grid__item--layout-product-2 product type-product post-138 status-publish first instock product_cat-pizza has-post-thumbnail shipping-taxable purchasable product-type-variable has-default-attributes'><div class='c-product-grid__item-wrap c-product-grid__item-wrap--layout-product-2'><div class='c-product-grid__thumb-wrap c-product-grid__thumb-wrap--layout-product-2'><a href='#'><div class='c-badge__list c-product-grid__badges c-product-grid__badges--layout-product-2'></div><img src='"+ImagePizza+"' data-src='"+ImagePizza+"' alt='Pizza Bianca' class='c-product-grid__thumb c-product-grid__thumb--layout-product-2 lazyloaded'></a></div><div class='c-product-grid__details c-product-grid__details--layout-product-2'><div class='c-product-grid__title'><a class='c-product-grid__title-link' href='#'>"+nomPizza+"</a></div><div class='c-markers c-product-grid__markers'><span class='c-markers__wrap c-product-grid__marker js-marker'><span class='c-markers__title'>"+typePizza+"</span><img class='c-markers__icon' src='"+imageTypePizza+"' alt='"+typePizza+"'></span><span class='c-markers__wrap c-product-grid__marker'><span class='c-markers__title'>Ingrediant</span><button class='h-cb h-cb--svg c-product-grid__marker-info-icon js-extra-info bouttonpizza' type='button' id='"+NumeroPizza+"'><i class='fas fa-info-circle' style='font-size: 20px;color : #062D6D' ></i></button></span></div><div class='c-product-grid__marker-popup c-product-grid__marker-popup--layout-product-2 js-extra-info-popup pizza"+NumeroPizza+"'><i class='fas fa-window-close closeWinid' Valueid='"+NumeroPizza+"' style='font-size: 20px;color : white;cursor:pointer;margin-left:85%;' ></i><br>"+listeIngredient+"</div><div class='c-product-grid__marker-popup-text'></div></div><div class='c-product-grid__short-desc'><p>"+descriptionPizza+"</p></div><form class='c-variation__form js-variations-form'><div class='c-variation__wrap variations'><ul class='c-variation js-variation' data-attribute_name='attribute_pa_size' data-show_option_none='no'>"+listeTaillePrix+"</ul></div><div class='c-variation__single single_variation_wrap'><div class='c-variation__single-info single_variation'><div class='woocommerce-variation-description'></div><div class='woocommerce-variation-price'><span class='price'><span class='woocommerce-Price-amount amount'><bdi><span class='woocommerce-Price-currencySymbol'>€</span><span class='uprix"+NumeroPizza+"'>"+prix+"</span></bdi></span></span></div><div class='woocommerce-variation-availability'></div></div><div class='woocommerce-variation-add-to-cart variations_button woocommerce-variation-add-to-cart-enabled'><a href='/foodz/demo2/product-category/pizza/?add-to-cart=138' data-quantity='1' class='c-add-to-cart c-product-grid__add-to-cart single_add_to_cart_button js-add-to-cart-variation' data-product_id='138' data-product_sku='' aria-label='Select options for “Pizza Bianca”' rel='nofollow'><i class='fa fa-shopping-cart' aria-hidden='true'></i>Add to cart</a><input type='hidden' name='quantity' class='qty' value='1'><span class='added_to_cart h-hidden'></span></div></div></form><div class='c-product-grid__quantity-wrap'><div class='c-quantity js-product-grid-quantity'></div></div></div></li>";
-        data+=dataGlobal;    
-    }
-    o++;
-}
-}       
-            document.getElementsByClassName("c-product-grid__list c-product-grid__list--layout-product-2  columns-3 h-clearfix")[0].innerHTML = data; 
-            document.onload = window.external.invokewpfsincjavascript("ouii")
-        }
-
-        $(function(){
-            returnData(0);
+                            $(".c-add-to-cart.c-product-grid__add-to-cart.single_add_to_cart_button.js-add-to-cart-variation").click(function(){
+                                window.external.AddPanier($(this).attr("valueid"))
+                            })
+                            $(".prix").click(function(){
+                                id = $(this).attr("valueid")
+                                $(".uprix"+id).text($(this).attr("prix"))
+                            })
             
-            $(".prix").click(function(){
-                id = $(this).attr("valueid")
-                $(".uprix"+id).text($(this).attr("prix"))
-            })
+                            $(".bouttonpizza").click(function(){
+                                id = $(this).attr("id")
+                                $(".pizza"+id).attr("class","c-product-grid__marker-popup c-product-grid__marker-popup--layout-product-2 js-extra-info-popup c-product-grid__marker-popup--active pizza1")
+                            })
+                
+                            $(".closeWinid").click(function(){
+                                $(this).parent().attr("class","c-product-grid__marker-popup c-product-grid__marker-popup--layout-product-2 js-extra-info-popup pizza"+ $(this).attr("Valueid"))
+                            })
+
+                            
+            }, 1200);
+            //document.onload = window.external.endLoadPagePizza()
+        }
+        $(function(){
+           
             $("#bouttonNext").click(function(){
+                $("#imageLoad").show()
                 val = parseInt($(this).attr("valueStart"))
                 val+=7;
                 $(this).attr("valueStart",val);
                 returnData(val);
-
-                $(".prix").click(function(){
-                    id = $(this).attr("valueid")
-                    $(".uprix"+id).text($(this).attr("prix"))
-                })
-
-                $(".bouttonpizza").click(function(){
-                    id = $(this).attr("id")
-                    $(".pizza"+id).attr("class","c-product-grid__marker-popup c-product-grid__marker-popup--layout-product-2 js-extra-info-popup c-product-grid__marker-popup--active pizza1")
-                })
-    
-                $(".closeWinid").click(function(){
-                    $(this).parent().attr("class","c-product-grid__marker-popup c-product-grid__marker-popup--layout-product-2 js-extra-info-popup pizza"+ $(this).attr("Valueid"))
-                })
-
-            })
-            $(".bouttonpizza").click(function(){
-                id = $(this).attr("id")
-                $(".pizza"+id).attr("class","c-product-grid__marker-popup c-product-grid__marker-popup--layout-product-2 js-extra-info-popup c-product-grid__marker-popup--active pizza1")
-            })
-
-            $(".closeWinid").click(function(){
-                $(this).parent().attr("class","c-product-grid__marker-popup c-product-grid__marker-popup--layout-product-2 js-extra-info-popup pizza"+ $(this).attr("Valueid"))
             })
         }) 
 

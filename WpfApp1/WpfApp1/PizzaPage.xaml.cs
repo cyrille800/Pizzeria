@@ -27,7 +27,46 @@ namespace WpfApp1
 
     public partial class PizzaPage : Page
     {
-        private ObjectForScriptingHelper helper = new ObjectForScriptingHelper();
+        private int clickPanier = 0;
+        private static CataloguePizzeria Cata;
+
+
+        [PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
+        [ComVisible(true)]
+        public class ObjectForScriptingHelper
+        {
+
+            public bool chargement = true;
+            public void invokewpfsincjavascript(string message)
+            {
+                MessageBox.Show(message);
+            }
+
+            public void AddPanier(String id)
+            {
+                Pizza p = new Pizza();
+                foreach (Pizzeria pizzzeriia in Cata.Catalogue)
+                {
+                    foreach (Pizza pizza in pizzzeriia.LPizza)
+                    {
+                        if (pizza.Id == Convert.ToInt32(id))
+                        {
+                            p = pizza;
+                        }
+                    }
+                }
+
+                // permet d'utiliser les notification systeme Install - Package Microsoft.Toolkit.Uwp.Notifications - Version 6.1.1
+                MessageBox.Show(p.Nom);
+            }
+
+            public void startLoadPagePizza()
+            {
+                chargement = true;
+            }
+        }
+
+        private ObjectForScriptingHelper helper;
 
         private async void check()
         {
@@ -43,17 +82,25 @@ namespace WpfApp1
             );
             if (!t)
             {
-                Process.Start(Application.ResourceAssembly.Location);
-                Application.Current.Shutdown();
+                MessageBox.Show("oui");
             }
 
         }
 
         public PizzaPage()
         {
+            helper = new ObjectForScriptingHelper();
+
+            Cata = new CataloguePizzeria();
             InitializeComponent();
+            BordureboutPanier.Visibility = Visibility.Hidden;
             wbMain.ObjectForScripting = helper;
             check();
+        }
+
+        private void Webbrowser1_Navigated(object sender, NavigationEventArgs e)
+        {
+            //wbMain.InvokeScript("WriteFromExternals", "v");
         }
 
         private void loadCompletePagePizza(object sender, NavigationEventArgs e)
@@ -64,6 +111,10 @@ namespace WpfApp1
             {
                 string json = r.ReadToEnd();
                 lP = JsonConvert.DeserializeObject<List<Pizzeria>>(json);
+                foreach (Pizzeria p in lP)
+                {
+                    Cata.AjouterPizzeria(p);
+                }
                 if (lP != null)
                 {
                     //MessageBox.Show("c");
@@ -77,5 +128,37 @@ namespace WpfApp1
 
             }
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (clickPanier % 2 == 0)
+            {
+                BordureboutPanier.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                BordureboutPanier.Visibility = Visibility.Hidden;
+            }
+            clickPanier++;
+        }
+
+
+        private void pageLcik(object sender, RoutedEventArgs e)
+        {
+
+            BordureboutPanier.Visibility = Visibility.Hidden;
+
+        }
+
+        private void panier_MouseEnter(object sender, MouseEventArgs e)
+        {
+            ((Button)sender).Background = new SolidColorBrush(Color.FromArgb(25, 25, 36, 255));
+        }
+
+        private void panier_MouseLeave(object sender, MouseEventArgs e)
+        {
+            ((Button)sender).Background = Brushes.Transparent;
+        }
+
     }
 }
