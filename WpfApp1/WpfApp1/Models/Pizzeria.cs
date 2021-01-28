@@ -64,15 +64,6 @@ namespace WpfApp1.Models
         }
 
 
-
-
-        public delegate Pizzeria WebSiteScrapping();
-
-        public Pizzeria Scrapping(WebSiteScrapping w)
-        {
-            return w();
-        }
-
         public void AjouterPizza(Pizza p)
         {
             Lpizza.Add(p);
@@ -91,7 +82,7 @@ namespace WpfApp1.Models
             return false;
         }
 
-        public static Pizzeria ItalianoPizza()
+        public static Pizzeria ItalianoPizza(int pizzaActif)
         {
             Pizzeria p = new Pizzeria();
             p.Nom = "Italiano pizza";
@@ -160,6 +151,7 @@ namespace WpfApp1.Models
                     {
                     js.ExecuteScript("return document.getElementsByClassName('papersheet')[" + vc + "].className+='opened'");
                     Pizza piz = new Pizza();
+                    piz.Id = pizzaActif;
                     piz.Nom = Convert.ToString(js.ExecuteScript("return document.getElementsByClassName('mainProd')[" + vc + "].getElementsByTagName('h2')[0].textContent"));
                     if (!p.CheckPizza(piz)) { 
 
@@ -190,7 +182,7 @@ namespace WpfApp1.Models
                     piz.Type = "Pizza tomate";
                     p.AjouterPizza(piz);
                 }
-
+                    pizzaActif++;
                 }
                 #endregion
 
@@ -204,6 +196,7 @@ namespace WpfApp1.Models
                 {
                     js.ExecuteScript("return document.getElementsByClassName('papersheet')[" + vc + "].className+='opened'");
                     Pizza piz = new Pizza();
+                    piz.Id = pizzaActif;
                     piz.Nom = Convert.ToString(js.ExecuteScript("return document.getElementsByClassName('mainProd')[" + vc + "].getElementsByTagName('h2')[0].textContent"));
                     if (!p.CheckPizza(piz))
                     {
@@ -235,7 +228,7 @@ namespace WpfApp1.Models
                         piz.Type = "Pizza creme";
                         p.AjouterPizza(piz);
                     }
-
+                    pizzaActif++;
                 }
                 #endregion
             }
@@ -245,7 +238,7 @@ namespace WpfApp1.Models
         }
 
 
-        public static Pizzeria AlloPizza()
+        public static Pizzeria AlloPizza(int pizzaActif=0)
         {
             Pizzeria p = new Pizzeria();
             p.Nom = "Allo pizza";
@@ -314,6 +307,7 @@ namespace WpfApp1.Models
                 {
                     js.ExecuteScript("return document.getElementsByClassName('papersheet')[" + vc + "].className+='opened'");
                     Pizza piz = new Pizza();
+                    piz.Id = pizzaActif;
                     piz.Nom = Convert.ToString(js.ExecuteScript("return document.getElementsByClassName('mainProd')[" + vc + "].getElementsByTagName('h2')[0].textContent"));
                     if (!p.CheckPizza(piz))
                     {
@@ -345,7 +339,7 @@ namespace WpfApp1.Models
                         piz.Type = "Pizza tomate";
                         p.AjouterPizza(piz);
                     }
-
+                    pizzaActif++;
                 }
                 #endregion
 
@@ -359,6 +353,7 @@ namespace WpfApp1.Models
                 {
                     js.ExecuteScript("return document.getElementsByClassName('papersheet')[" + vc + "].className+='opened'");
                     Pizza piz = new Pizza();
+                    piz.Id = pizzaActif;
                     piz.Nom = Convert.ToString(js.ExecuteScript("return document.getElementsByClassName('mainProd')[" + vc + "].getElementsByTagName('h2')[0].textContent"));
                     if (!p.CheckPizza(piz))
                     {
@@ -390,7 +385,7 @@ namespace WpfApp1.Models
                         piz.Type = "Pizza creme";
                         p.AjouterPizza(piz);
                     }
-
+                    pizzaActif++;
                 }
                 #endregion
             }
