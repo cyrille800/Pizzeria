@@ -1,6 +1,4 @@
-﻿using DotNetBrowser.Engine;
-using Microsoft.Toolkit.Uwp.Notifications;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -34,12 +32,7 @@ namespace WpfApp1
 
 
         public MainWindow()
-        {
-
-            // Register COM server and activator type
-            DesktopNotificationManagerCompat.RegisterActivator<MyNotificationActivator>();
-
-            // il faut installé ca Install-Package WpfAnimatedGif -Version 2.0.0 dans package manager
+        {// il faut installé ca Install-Package WpfAnimatedGif -Version 2.0.0 dans package manager
             InitializeComponent();
             loadPage = null;
             List<Pizzeria> lP = null;
@@ -53,6 +46,7 @@ namespace WpfApp1
                     MessageBox.Show("click on the update button of the main interface to update the program");
                 }
             }
+
 
         }
 

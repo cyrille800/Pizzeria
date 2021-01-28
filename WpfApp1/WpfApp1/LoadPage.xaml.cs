@@ -42,13 +42,16 @@ namespace WpfApp1
 
         private static void validationFinale()
         {
-            CataloguePizzeria C = new CataloguePizzeria();
+            List<Pizzeria> lP = new List<Pizzeria>();
 
-            C.AjouterPizzeria( C.Scrapping(Pizzeria.ItalianoPizza,0));
-            C.AjouterPizzeria(C.Scrapping(Pizzeria.AlloPizza,C.Catalogue.First().LPizza.Count));
+            //utilisation des delegates
+            Pizzeria pizzeria1 = new Pizzeria();
+            Pizzeria pizzeria2 = new Pizzeria();
 
+            lP.Add(pizzeria1.Scrapping(Pizzeria.AlloPizza));
+            lP.Add(pizzeria2.Scrapping(Pizzeria.ItalianoPizza));
 
-            string json = JsonConvert.SerializeObject(C.Catalogue.ToArray());
+            string json = JsonConvert.SerializeObject(lP.ToArray());
             System.IO.File.WriteAllText(@"dataPizza.txt", json);
         }
 
