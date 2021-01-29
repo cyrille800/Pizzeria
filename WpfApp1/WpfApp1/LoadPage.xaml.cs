@@ -28,8 +28,10 @@ namespace WpfApp1
     {
 
         private static LoadPage currentPage;
+        // permet de manipuler le temps
         private System.Threading.Timer timerValidation = null;
         private TimerCallback timerDelegate = new TimerCallback(Timer_Callback);
+
         public static bool fini = false;
 
         private static void Timer_Callback(object obj)
@@ -52,6 +54,7 @@ namespace WpfApp1
             System.IO.File.WriteAllText(@"dataPizza.txt", json);
         }
 
+        #region une fonction asynchrne qui me permet de savoir si la mise à jour (le scrapping est terminé)
         private async void check()
         {
 
@@ -71,12 +74,18 @@ namespace WpfApp1
             }
 
         }
+        #endregion
 
         public LoadPage()
         {
             InitializeComponent();
             currentPage = this;
+            /* cette ligne me permet de faire appel à la fonction timerValidation après un delay de 500 
+             * le temps d'afficher la fênettre 
+             */
             timerValidation = new System.Threading.Timer(timerDelegate, timerValidation, 500, Timeout.Infinite);
+
+            // l'appel de ma fonction indiqué plus haut;
             check();
         }
     }

@@ -26,3 +26,5 @@ D:\cours\programmation poo avance\projet\UserPizzeria\WpfApp1\WpfApp1\bin\Debug\
 D:\cours\programmation poo avance\projet\UserPizzeria\WpfApp1\WpfApp1\bin\Debug\Newtonsoft.Json.xml
 D:\cours\programmation poo avance\projet\UserPizzeria\WpfApp1\WpfApp1\obj\Debug\PizzaPage.g.cs
 D:\cours\programmation poo avance\projet\UserPizzeria\WpfApp1\WpfApp1\obj\Debug\PizzaPage.baml
+D:\cours\programmation poo avance\projet\UserPizzeria\WpfApp1\WpfApp1\obj\Debug\PageHome.g.cs
+D:\cours\programmation poo avance\projet\UserPizzeria\WpfApp1\WpfApp1\obj\Debug\PageHome.baml

@@ -32,6 +32,7 @@ namespace WpfApp1
         public static bool fileChage=false;
 
 
+        #region me permet de faire une communication javascript vers WPF de mon compasant webBrowser
         [PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
         [ComVisible(true)]
         public class ObjectForScriptingHelper
@@ -75,8 +76,12 @@ namespace WpfApp1
             }
         }
 
+        #endregion
+
+        // utilisé pour établir la connexion entre WPF vers javascript
         private ObjectForScriptingHelper helper;
 
+        #region fonction asynchrone utilisée pour verifier si le panier est modifier pour faire une mise à jour de l'affichage
         private async void check()
         {
             int nbrPizzaPanier = Panier.getNombreTypePizzaPanier();
@@ -110,6 +115,8 @@ namespace WpfApp1
 
         }
 
+        #endregion
+
         public PizzaPage()
         {
             helper = new ObjectForScriptingHelper();
@@ -133,11 +140,7 @@ namespace WpfApp1
             check();
         }
 
-        private void Webbrowser1_Navigated(object sender, NavigationEventArgs e)
-        {
-            //wbMain.InvokeScript("WriteFromExternals", "v");
-        }
-
+        // cette événement me permet de savoir la page est chargé en mémoire, ensuite j'envoie mes données
         private void loadCompletePagePizza(object sender, NavigationEventArgs e)
         {
             List<Pizzeria> lP = null;
@@ -177,7 +180,7 @@ namespace WpfApp1
                 }
                 if (lP != null)
                 {
-                    //MessageBox.Show("c");
+                    // cette fonction permet d'invoqué une méthode javascript appelé WriteFromExternals avec mon catalogue de pizzeria qui sera traité la bas
                     wbMain.InvokeScript("WriteFromExternals", json);
                     //
                 }
@@ -189,6 +192,7 @@ namespace WpfApp1
             }
         }
 
+        // me permet d'afficher le panier
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             if (clickPanier % 2 == 0)
@@ -203,6 +207,7 @@ namespace WpfApp1
         }
 
 
+        // me permet de savoir si on clickqué sur la pge pour fermer la fênettre panier
         private void pageLcik(object sender, RoutedEventArgs e)
         {
 
@@ -210,6 +215,7 @@ namespace WpfApp1
 
         }
 
+        #region permet de faire des animation sur le boutton Panier
         private void panier_MouseEnter(object sender, MouseEventArgs e)
         {
             ((Button)sender).Background = new SolidColorBrush(Color.FromArgb(25, 25, 36, 255));
@@ -219,6 +225,25 @@ namespace WpfApp1
         {
             ((Button)sender).Background = Brushes.Transparent;
         }
+        #endregion
 
+        #region permet de faire des animation sur le boutton Home
+        private void HomeButton_MouseEnter(object sender, MouseEventArgs e)
+        {
+            ((Button)sender).Background = new SolidColorBrush(Color.FromArgb(25, 25, 36, 255));
+        }
+
+        private void HomeButton_MouseLeave(object sender, MouseEventArgs e)
+        {
+            ((Button)sender).Background = Brushes.Transparent;
+        }
+        #endregion
+
+        // permet de retourner à la page principale
+        private void Button_ClickHome(object sender, RoutedEventArgs e)
+        {
+            PageHome p = new PageHome();
+            MainWindow.fenetrePrincipal.Content = p;
+        }
     }
 }

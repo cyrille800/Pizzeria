@@ -14,29 +14,5 @@
         <Grid.Background>
             <ImageBrush x:Name="Img_Fond" ImageSource="firstPage.jpg" Stretch="Fill" TileMode="None" />
         </Grid.Background>
-
-        <Button x:Name="update" 
-                Background="Transparent"
-                Cursor="Hand"
-                BorderBrush="Transparent"
-                Style="{StaticResource btnBlue}" 
-                Content=""
-                Click="Update_Click"
-                MouseEnter="Update_MouseEnter" 
-                MouseLeave="Update_MouseLeave"
-                RenderTransformOrigin="0.592,0.758" Margin="219,421,885.6,0" Height="49" VerticalAlignment="Top" >
-        </Button>
-
-        <Button x:Name="pizzaButton" 
-                Background="Transparent"
-                Cursor="Hand"
-                BorderBrush="Transparent"
-                Style="{StaticResource btnBlue}" 
-                Content=""
-                Click="pizzaButton_Click"
-                MouseEnter="pizzaButton_MouseEnter" 
-                MouseLeave="pizzaButton_MouseLeave"
-                RenderTransformOrigin="0.592,0.758" Margin="289,66,875.6,0" Height="34" VerticalAlignment="Top" >
-        </Button>
     </Grid>
 </Window>

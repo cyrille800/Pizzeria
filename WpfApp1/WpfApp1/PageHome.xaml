@@ -1,0 +1,44 @@
+﻿<Page x:Class="WpfApp1.PageHome"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WpfApp1"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Page1">
+
+
+
+    <Canvas>
+        <Canvas.Background>
+            <ImageBrush x:Name="Img_Fond" ImageSource="pack://siteoforigin:,,,/firstPage.jpg" Stretch="Fill" TileMode="None" />
+        </Canvas.Background>
+
+        <Button x:Name="update" 
+                Background="Transparent"
+                Cursor="Hand"
+                BorderBrush="Transparent"
+                Style="{StaticResource btnBlue}" 
+                Content=""
+                Click="Update_Click"
+                MouseEnter="Update_MouseEnter" 
+                MouseLeave="Update_MouseLeave"
+                RenderTransformOrigin="0.592,0.758" Height="49" VerticalAlignment="Top" Canvas.Left="219" Canvas.Top="421" Width="190" />
+
+        <Button x:Name="pizzaButton" 
+                Background="Transparent"
+                Cursor="Hand"
+                BorderBrush="Transparent"
+                Style="{StaticResource btnBlue}" 
+                Content=""
+                Click="pizzaButton_Click"
+                MouseEnter="pizzaButton_MouseEnter" 
+                MouseLeave="pizzaButton_MouseLeave"
+                RenderTransformOrigin="0.592,0.758" Height="34" VerticalAlignment="Top" Canvas.Left="289" Canvas.Top="66" Width="120" />
+        <Border BorderBrush="Transparent" Background="Orange" BorderThickness="1" Height="18" Canvas.Left="1158" Canvas.Top="58" Width="17"  CornerRadius="10">
+            <TextBlock x:Name="qte" Margin="5,1,1.8,-0.4" FontSize="9" Foreground="White" >0</TextBlock>
+        </Border>
+        <Label x:Name="prixPanierLabel" Content="$ 0" Canvas.Left="1166" Canvas.Top="70" Foreground="White" FontWeight="Bold"/>
+    </Canvas>
+</Page>

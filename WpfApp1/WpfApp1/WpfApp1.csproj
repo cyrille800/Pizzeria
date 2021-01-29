@@ -87,6 +87,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="PageHome.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="PizzaPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -98,6 +102,9 @@
     <Compile Include="Models\Pizza.cs" />
     <Compile Include="Models\PizzaCommande.cs" />
     <Compile Include="Models\Pizzeria.cs" />
+    <Compile Include="PageHome.xaml.cs">
+      <DependentUpon>PageHome.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PizzaPage.xaml.cs">
       <DependentUpon>PizzaPage.xaml</DependentUpon>
     </Compile>
