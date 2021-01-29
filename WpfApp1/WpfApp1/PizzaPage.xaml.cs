@@ -29,6 +29,7 @@ namespace WpfApp1
     {
         private int clickPanier = 0;
         private static CataloguePizzeria Cata;
+        public static bool fileChage=false;
 
 
         [PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
@@ -78,19 +79,33 @@ namespace WpfApp1
 
         private async void check()
         {
+            int nbrPizzaPanier = Panier.getNombreTypePizzaPanier();
+            if (nbrPizzaPanier != 0)
+            {
+                qte.Text = Convert.ToString(nbrPizzaPanier);
+                prixPanierLabel.Content = "$ " + Convert.ToString(Panier.getPrixPanier());
 
+                qte.Visibility = Visibility.Visible;
+                prixPanierLabel.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                qte.Visibility = Visibility.Hidden;
+                prixPanierLabel.Visibility = Visibility.Hidden;
+            }
             bool t = await Task.Run(() =>
             {
-                while (helper.chargement)
+                while (!fileChage)
                 {
 
                 }
-                return false;
+                return true;
             }
             );
-            if (!t)
+            if (t)
             {
-                MessageBox.Show("oui");
+                fileChage = false;
+                check();
             }
 
         }
@@ -98,6 +113,18 @@ namespace WpfApp1
         public PizzaPage()
         {
             helper = new ObjectForScriptingHelper();
+
+            FileSystemWatcher fileSystemWatcher = new FileSystemWatcher();
+
+            string[] args = Environment.GetCommandLineArgs();
+
+            fileSystemWatcher.Path = args[0].Replace("WpfApp1.exe", "");
+            fileSystemWatcher.Filter = "panier.txt";
+
+            fileSystemWatcher.Changed += delegate (object sender, FileSystemEventArgs e) { fileChage = true; };
+
+
+            fileSystemWatcher.EnableRaisingEvents = true;
 
             Cata = new CataloguePizzeria();
             InitializeComponent();

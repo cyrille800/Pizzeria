@@ -125,13 +125,16 @@ Sorry, this product is unavailable. Please choose a different combination.</p>
     </head>
 
 
-    <body>
+    <body valueStart="0">
 
         <div class="l-section__content l-section__content--with-sidebar">
 
             <div class=" js-sticky-sidebar-nearby " style="width:150%;">
 
-        <button id="bouttonNext" valueStart="0" style="margin-top:2%;margin-left:70%;width:20%;" href="https://parkofideas.com/foodz/demo2/checkout/" class="c-form__button checkout-button button alt wc-forward">
+        <button id="bouttonPrevious" valueStart="0" style="margin-top:2%;margin-left:22%;width:20%;" href="#" class="c-form__button checkout-button button alt wc-forward">
+            <i class='fas fa-arrow-left' style='font-size: 20px;color : white' ></i> Previous page </button>
+
+        <button id="bouttonNext" valueStart="0" style="margin-top:2%;margin-left:2%;width:20%;" href="#" class="c-form__button checkout-button button alt wc-forward">
             Next page <i class='fas fa-arrow-right' style='font-size: 20px;color : white' ></i></button>
          <div class="c-product-grid"  style="margin-top:5%;margin-left:6%;">
              <img src="loader.gif" style="margin-left:34%;margin-bottom:30%;" id="imageLoad"/>
@@ -209,7 +212,14 @@ Sorry, this product is unavailable. Please choose a different combination.</p>
                             display+="display:none;";
                         }
                         listeTaillePrix +="<li prix='"+obj[i].LPizza[j].Prix[a].Prix+"' class='c-variation__val prix' valueid='"+NumeroPizza+"'><label style='"+display+"' ><input prix='"+obj[i].LPizza[j].Prix[a].Prix+"' class='h-cb c-variation__radio attached enabled valueCheck' idvalue='"+NumeroPizza+"' type='radio' name='attribute_pa_size'  value='"+obj[i].LPizza[j].Prix[a].Nom+"'";
-                            if(a==0){
+                            
+                            if(valeurPlus!=""){
+                                if(obj[i].LPizza[j].Prix[a].Nom==valeurPlus[2]){
+                                    prix = obj[i].LPizza[j].Prix[a].Prix
+                                    listeTaillePrix+="checked='checked'"                                   
+                                }
+                            }
+                            else if(a==0){
                                 prix = obj[i].LPizza[j].Prix[a].Prix
                                 listeTaillePrix+="checked='checked'"
                             }
@@ -221,13 +231,15 @@ Sorry, this product is unavailable. Please choose a different combination.</p>
                     qte = 1;
                     afficherQte="";
                     showButtonAjouter="";
+                    dejaAjouter="";
                     if(valeurPlus!=""){
                         qte=valeurPlus[1];
                         showButtonAjouter ="display:none;";
+                        dejaAjouter="<span class='c-badge c-badge--featured'>already in the basket</span>"
                     }else{
                         afficherQte ="display:none;";
                     }
-                        dataGlobal ="<li class='c-product-grid__item c-product-grid__item--layout-product-2 product type-product post-138 status-publish first instock product_cat-pizza has-post-thumbnail shipping-taxable purchasable product-type-variable has-default-attributes'><div class='c-product-grid__item-wrap c-product-grid__item-wrap--layout-product-2'><div class='c-product-grid__thumb-wrap c-product-grid__thumb-wrap--layout-product-2'><a href='#'><div class='c-badge__list c-product-grid__badges c-product-grid__badges--layout-product-2'></div><img src='"+ImagePizza+"' data-src='"+ImagePizza+"' alt='Pizza Bianca' class='c-product-grid__thumb c-product-grid__thumb--layout-product-2 lazyloaded'></a></div><div class='c-product-grid__details c-product-grid__details--layout-product-2'><div class='c-product-grid__title'><a class='c-product-grid__title-link' href='#'>"+nomPizza+"</a></div><div class='c-markers c-product-grid__markers'><span class='c-markers__wrap c-product-grid__marker js-marker'><span class='c-markers__title'>"+typePizza+"</span><img class='c-markers__icon' src='"+imageTypePizza+"' alt='"+typePizza+"'></span><span class='c-markers__wrap c-product-grid__marker'><span class='c-markers__title'>Ingrediant</span><button class='h-cb h-cb--svg c-product-grid__marker-info-icon js-extra-info bouttonpizza' type='button' id='"+NumeroPizza+"'><i class='fas fa-info-circle' style='font-size: 20px;color : #062D6D' ></i></button></span></div><div class='c-product-grid__marker-popup c-product-grid__marker-popup--layout-product-2 js-extra-info-popup pizza"+NumeroPizza+"'><i class='fas fa-window-close closeWinid' Valueid='"+NumeroPizza+"' style='font-size: 20px;color : white;cursor:pointer;margin-left:85%;' ></i><br>"+listeIngredient+"</div><div class='c-product-grid__marker-popup-text'></div></div><div class='c-product-grid__short-desc'><p>"+descriptionPizza+"</p></div><form class='c-variation__form js-variations-form'><div class='c-variation__wrap variations'><ul class='c-variation js-variation' data-attribute_name='attribute_pa_size' data-show_option_none='no'>"+listeTaillePrix+"</ul></div><div class='c-variation__single single_variation_wrap'><div class='c-variation__single-info single_variation'><div class='woocommerce-variation-description'></div><div class='woocommerce-variation-price'><span class='price'><span class='woocommerce-Price-amount amount'><bdi><span class='woocommerce-Price-currencySymbol'>€</span><span class='uprix"+NumeroPizza+"'>"+prix+"</span></bdi></span></span></div><div class='woocommerce-variation-availability'></div></div><div class='woocommerce-variation-add-to-cart variations_button woocommerce-variation-add-to-cart-enabled'><div data-quantity='1' class='c-add-to-cart c-product-grid__add-to-cart single_add_to_cart_button js-add-to-cart-variation' style='"+showButtonAjouter+"'  valueid='"+NumeroPizza+"' data-product_id='138' data-product_sku='' aria-label='Select options for “Pizza Bianca”' rel='nofollow'><i class='fa fa-shopping-cart' aria-hidden='true'></i>Add to cart</div><input type='hidden' name='quantity' class='qty' value='"+qte+"'><span class='added_to_cart h-hidden'></span></div></div></form><div class='c-product-grid__quantity-wrap'  style='margin-top:20%;'><div class='c-quantity js-product-grid-quantity'><div style='"+afficherQte+"'  class='c-quantity"+NumeroPizza+"'><button class='h-cb c-quantity__minus js-quantity-minus diminuerPizza' style='display:inline-block;' valueid='"+NumeroPizza+"'>–</button><div id='ValuePizza"+NumeroPizza+"' style='display:inline-block;background:grey;color:white;width : 50px;text-align:center;'>"+qte+"</div><button valueid='"+NumeroPizza+"'  style='display:inline-block;' class='h-cb c-quantity__plus js-quantity-plus augmenterPizza'>+</button></div></div></div></div></li>";
+                        dataGlobal ="<li class='c-product-grid__item c-product-grid__item--layout-product-2 product type-product post-138 status-publish first instock product_cat-pizza has-post-thumbnail shipping-taxable purchasable product-type-variable has-default-attributes'><div class='c-product-grid__item-wrap c-product-grid__item-wrap--layout-product-2'><div class='c-product-grid__thumb-wrap c-product-grid__thumb-wrap--layout-product-2'><a href='#'><div class='c-badge__list c-product-grid__badges c-product-grid__badges--layout-product-2' valueid='"+NumeroPizza+"'>"+dejaAjouter+"</div><img src='"+ImagePizza+"' data-src='"+ImagePizza+"' alt='Pizza Bianca' class='c-product-grid__thumb c-product-grid__thumb--layout-product-2 lazyloaded'></a></div><div class='c-product-grid__details c-product-grid__details--layout-product-2'><div class='c-product-grid__title'><a class='c-product-grid__title-link' href='#'>"+nomPizza+"</a></div><div class='c-markers c-product-grid__markers'><span class='c-markers__wrap c-product-grid__marker js-marker'><span class='c-markers__title'>"+typePizza+"</span><img class='c-markers__icon' src='"+imageTypePizza+"' alt='"+typePizza+"'></span><span class='c-markers__wrap c-product-grid__marker'><span class='c-markers__title'>Ingrediant</span><button class='h-cb h-cb--svg c-product-grid__marker-info-icon js-extra-info bouttonpizza' type='button' id='"+NumeroPizza+"'><i class='fas fa-info-circle' style='font-size: 20px;color : #062D6D' ></i></button></span></div><div class='c-product-grid__marker-popup c-product-grid__marker-popup--layout-product-2 js-extra-info-popup pizza"+NumeroPizza+"'><i class='fas fa-window-close closeWinid' Valueid='"+NumeroPizza+"' style='font-size: 20px;color : white;cursor:pointer;margin-left:85%;' ></i><br>"+listeIngredient+"</div><div class='c-product-grid__marker-popup-text'></div></div><div class='c-product-grid__short-desc'><p>"+descriptionPizza+"</p></div><form class='c-variation__form js-variations-form'><div class='c-variation__wrap variations'><ul class='c-variation js-variation' data-attribute_name='attribute_pa_size' data-show_option_none='no'>"+listeTaillePrix+"</ul></div><div class='c-variation__single single_variation_wrap'><div class='c-variation__single-info single_variation'><div class='woocommerce-variation-description'></div><div class='woocommerce-variation-price'><span class='price'><span class='woocommerce-Price-amount amount'><bdi><span class='woocommerce-Price-currencySymbol'>€</span><span class='uprix"+NumeroPizza+"'>"+prix+"</span></bdi></span></span></div><div class='woocommerce-variation-availability'></div></div><div class='woocommerce-variation-add-to-cart variations_button woocommerce-variation-add-to-cart-enabled'><div data-quantity='1' class='c-add-to-cart c-product-grid__add-to-cart single_add_to_cart_button js-add-to-cart-variation' style='"+showButtonAjouter+"'  valueid='"+NumeroPizza+"' data-product_id='138' data-product_sku='' aria-label='Select options for “Pizza Bianca”' rel='nofollow'><i class='fa fa-shopping-cart' aria-hidden='true'></i>Add to cart</div><input type='hidden' name='quantity' class='qty' value='"+qte+"'><span class='added_to_cart h-hidden'></span></div></div></form><div class='c-product-grid__quantity-wrap'  style='margin-top:20%;'><div class='c-quantity js-product-grid-quantity'><div style='"+afficherQte+"'  class='c-quantity"+NumeroPizza+"'><button class='h-cb c-quantity__minus js-quantity-minus diminuerPizza' style='display:inline-block;' valueid='"+NumeroPizza+"'>–</button><div id='ValuePizza"+NumeroPizza+"' style='display:inline-block;background:grey;color:white;width : 50px;text-align:center;'>"+qte+"</div><button valueid='"+NumeroPizza+"'  style='display:inline-block;' class='h-cb c-quantity__plus js-quantity-plus augmenterPizza'>+</button></div></div></div></div></li>";
                         data+=dataGlobal;    
                     }
                     o++;
@@ -244,6 +256,7 @@ Sorry, this product is unavailable. Please choose a different combination.</p>
                                     $(".valueCheck[idvalue='"+$(this).attr("valueid")+"']:not([checked='checked'])").parent().show()
                                     $(".c-add-to-cart.c-product-grid__add-to-cart.single_add_to_cart_button.js-add-to-cart-variation[valueid ='"+$(this).attr("valueid")+"']").show()
                                     $(".c-quantity"+$(this).attr("valueid")).hide();
+                                    $(".c-badge__list.c-product-grid__badges.c-product-grid__badges--layout-product-2[valueid='"+$(this).attr("valueid")+"']").html("")
                                  }else{
                                     $("#ValuePizza"+$(this).attr("valueid")).text(v)
                                  }
@@ -267,6 +280,7 @@ Sorry, this product is unavailable. Please choose a different combination.</p>
                                
                            })
                             $(".c-add-to-cart.c-product-grid__add-to-cart.single_add_to_cart_button.js-add-to-cart-variation").click(function(){
+                                $(".c-badge__list.c-product-grid__badges.c-product-grid__badges--layout-product-2[valueid='"+$(this).attr("valueid")+"']").html("<span class='c-badge c-badge--featured'>already in the basket</span>")
                                 $(".c-quantity"+$(this).attr("valueid")).show();
                                 $(this).hide();
                                 $(".valueCheck[idvalue='"+$(this).attr("valueid")+"']:not([checked='checked'])").parent().hide()
@@ -295,10 +309,20 @@ Sorry, this product is unavailable. Please choose a different combination.</p>
            
             $("#bouttonNext").click(function(){
                 $("#imageLoad").show()
-                val = parseInt($(this).attr("valueStart"))
+                val = parseInt($("body").attr("valueStart"))
                 val+=7;
-                $(this).attr("valueStart",val);
+                $("body").attr("valueStart",val);
                 returnData(val);
+            })
+
+            $("#bouttonPrevious").click(function(){
+                val = parseInt($("body").attr("valueStart"))
+                if(val>=7){
+                    $("#imageLoad").show()
+                    val-=7;
+                    $("body").attr("valueStart",val);
+                    returnData(val);
+                }
             })
         }) 
 

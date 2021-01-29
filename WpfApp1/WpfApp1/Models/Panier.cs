@@ -41,6 +41,28 @@ namespace WpfApp1.Models
             return null;
         }
 
+        public static int getNombreTypePizzaPanier()
+        {
+            List<PizzaCommande> LC = getPanierUser();
+            if (LC != null)
+            {
+                return LC.Count(a => true);
+            }
+
+            return 0;
+        }
+
+        public static double getPrixPanier()
+        {
+            List<PizzaCommande> LC = getPanierUser();
+            if (LC != null)
+            {
+                return LC.ConvertAll(a => a.Prix.First().Prix*a.Qte).Sum();
+            }
+
+            return 0;
+        }
+
         public static void Modifierpanier(int id, int qte)
         {
             List<PizzaCommande> LC = getPanierUser();

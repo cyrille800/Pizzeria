@@ -33,8 +33,8 @@
                 Width="40" Click="Button_Click" 
                 Height="37"/>
         <Border BorderBrush="Transparent" Background="Orange" BorderThickness="1" Height="18" Canvas.Left="1158" Canvas.Top="58" Width="17"  CornerRadius="10">
-            <TextBlock Margin="5,1,1.8,-0.4" FontSize="9" Foreground="White" >0</TextBlock>
+            <TextBlock x:Name="qte" Margin="5,1,1.8,-0.4" FontSize="9" Foreground="White" >0</TextBlock>
         </Border>
-        <Label Content="$ 13.99" Canvas.Left="1166" Canvas.Top="70" Foreground="White" FontWeight="Bold"/>
+        <Label x:Name="prixPanierLabel" Content="$ 0" Canvas.Left="1166" Canvas.Top="70" Foreground="White" FontWeight="Bold"/>
     </Canvas>
 </Page>
