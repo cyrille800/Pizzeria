@@ -98,9 +98,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\CataloguePizzeria.cs" />
+    <Compile Include="Models\Article.cs" />
+    <Compile Include="Models\DessertComande.cs" />
+    <Compile Include="Models\PizzaCommande.cs" />
+    <Compile Include="Models\Deesert.cs" />
     <Compile Include="Models\Panier.cs" />
     <Compile Include="Models\Pizza.cs" />
-    <Compile Include="Models\PizzaCommande.cs" />
     <Compile Include="Models\Pizzeria.cs" />
     <Compile Include="PageHome.xaml.cs">
       <DependentUpon>PageHome.xaml</DependentUpon>

@@ -14,14 +14,34 @@
         </Canvas.Background>
 
         <Border x:Name="BordureboutPanier" Panel.ZIndex="10" Height="76" Width="427" 
-     BorderThickness="2" Background="White" BorderBrush="Transparent" Canvas.Left="737" Canvas.Top="94" CornerRadius="5">
-            <Canvas x:Name="boutPanier" />
+     BorderThickness="2" BorderBrush="Transparent" Canvas.Left="737" Canvas.Top="94" CornerRadius="5">
+            <Border.Background>
+                <ImageBrush ImageSource="pack://siteoforigin:,,,/bin/Debug/panier.jpg" Stretch="Fill" TileMode="None" />
+            </Border.Background>
+            <Canvas x:Name="boutPanier" >
+
+            </Canvas>
 
         </Border>
-        <ToolBar DockPanel.Dock="Left" Margin="0,179,0,-0.4" Width="267">
-            <Label Content="Label" Height="321.6" VerticalAlignment="Top"/>
+        <Canvas Background="White" Height="484" Width="267" Canvas.Top="188">
+            <Canvas Height="176" Width="236" Canvas.Left="22" Canvas.Top="10">
+                <Canvas.Background>
+                    <ImageBrush ImageSource="pack://siteoforigin:,,,/bin/Debug/firstcheckout.jpg" Stretch="Fill" TileMode="None" />
+                </Canvas.Background>
+                <Button x:Name="update" 
+                Background="Transparent"
+                Cursor="Hand"
+                BorderBrush="Transparent"
+                Style="{StaticResource btnBlue}" 
+                Content=""
+                Canvas.Left="108" Canvas.Top="93" Width="104" Height="44"
+                Click="checkOutButton_Click"
+                MouseEnter="Update_MouseEnter" 
+                MouseLeave="Update_MouseLeave" 
+                 />
+            </Canvas>
 
-        </ToolBar>
+        </Canvas>
         <WebBrowser x:Name="wbMain" Panel.ZIndex="0" Source="pack://siteoforigin:,,,/pizzapage.html" LoadCompleted="loadCompletePagePizza" Width="1066" Height="464" Canvas.Top="188" Canvas.Left="267"/>
         <Button Content="" Canvas.Left="1129" Canvas.Top="64" 
                 MouseEnter="panier_MouseEnter" 
@@ -44,6 +64,19 @@
         <Border BorderBrush="Transparent" Background="Orange" BorderThickness="1" Height="18" Canvas.Left="1158" Canvas.Top="58" Width="17"  CornerRadius="10">
             <TextBlock x:Name="qte" Margin="5,1,1.8,-0.4" FontSize="9" Foreground="White" >0</TextBlock>
         </Border>
-        <Label x:Name="prixPanierLabel" Content="$ 0" Canvas.Left="1166" Canvas.Top="70" Foreground="White" FontWeight="Bold"/>
+        <Label x:Name="prixPanierLabel" Content="€ 0" Canvas.Left="1166" Canvas.Top="70" Foreground="White" FontWeight="Bold"/>
+        <Button Content="" x:Name="panierUp"                 
+                Background="Transparent"
+                Cursor="Hand"
+                BorderBrush="Transparent"
+                Style="{StaticResource btnBlue}" 
+                Width="22" Canvas.Left="1136" RenderTransformOrigin="0.35,2.828" Panel.ZIndex="50" Canvas.Top="101" Height="23" Click="PanierUp_Click"/>
+        <Button Content=""                
+                Background="Transparent"
+                Cursor="Hand"
+                BorderBrush="Transparent"
+                Style="{StaticResource btnBlue}" 
+                x:Name="panierDown"  Width="22" Canvas.Left="1136" RenderTransformOrigin="0.35,2.828" Panel.ZIndex="50" Canvas.Top="141" Height="23" Click="PanierDown_Click"/>
+        <Label x:Name="prixPanierLabel_c" Content="€ 0" Canvas.Left="163" Canvas.Top="217" Foreground="#FF464646" FontWeight="Bold" Background="#00000000" FontSize="18"/>
     </Canvas>
 </Page>

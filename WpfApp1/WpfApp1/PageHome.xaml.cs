@@ -34,7 +34,7 @@ namespace WpfApp1
             List<Pizzeria> lP = null;
 
             // permet d'initialiser les valeurs d'affichages du panier
-            qte.Text = Convert.ToString(Panier.getNombreTypePizzaPanier());
+            qte.Text = Convert.ToString(Panier.getNombrePanier());
             prixPanierLabel.Content = "$ " + Convert.ToString(Panier.getPrixPanier());
 
             // je stocke toutes mes informations sur les produits de type pizza dans un fichier appelé dataPizza.txt

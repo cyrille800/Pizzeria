@@ -46,8 +46,24 @@ namespace WpfApp1
         {
             CataloguePizzeria C = new CataloguePizzeria();
 
-            C.AjouterPizzeria(C.Scrapping(Pizzeria.ItalianoPizza, 0));
-            C.AjouterPizzeria(C.Scrapping(Pizzeria.AlloPizza, C.Catalogue.First().LPizza.Count));
+            // site1 
+            try
+            {
+                C.AjouterPizzeria(C.Scrapping(Pizzeria.ItalianoPizza, 0));
+            }catch(Exception e)
+            {
+                C.AjouterPizzeria(C.Scrapping(Pizzeria.ItalianoPizza, 0));
+            }
+
+            // site2
+            try
+            {
+                C.AjouterPizzeria(C.Scrapping(Pizzeria.AlloPizza, C.Catalogue.First().LPizza.Count));
+            }
+            catch (Exception e)
+            {
+                C.AjouterPizzeria(C.Scrapping(Pizzeria.AlloPizza, C.Catalogue.First().LPizza.Count));
+            }
 
 
             string json = JsonConvert.SerializeObject(C.Catalogue.ToArray());

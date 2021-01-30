@@ -29,7 +29,10 @@ namespace WpfApp1
     {
         private int clickPanier = 0;
         private static CataloguePizzeria Cata;
-        public static bool fileChage=false;
+        public static bool fileChange=false;
+        public static int pagePanier = 0;
+        public static bool ReloadPizzaPage = false;
+        public static bool ReloadDeesertPage = false;
 
 
         #region me permet de faire une communication javascript vers WPF de mon compasant webBrowser
@@ -65,9 +68,42 @@ namespace WpfApp1
                 Panier.AjouterPizzaCommande(pc);
             }
 
+            public void AddPanierDessert(String id)
+            {
+                Dessert p = new Dessert();
+                foreach (Pizzeria pizzzeriia in Cata.Catalogue)
+                {
+                    foreach (Dessert dessert in pizzzeriia.LDessert)
+                    {
+                        if (dessert.Id == Convert.ToInt32(id))
+                        {
+                            p = dessert;
+                        }
+                    }
+                }
+
+                DessertComande pc = new DessertComande(p,1);
+                Panier.AjouterDessertCommande(pc);
+            }
+
             public void AddPanierModifierValeur(String id, String qte)
             {
                 Panier.Modifierpanier(Convert.ToInt32(id), Convert.ToInt32(qte));
+            }
+
+            public void AddPanierModifierValeurDessert(String id, String qte)
+            {
+                Panier.ModifierpanierDessert(Convert.ToInt32(id), Convert.ToInt32(qte));
+            }
+
+            public void showPizzaPage()
+            {
+                ReloadPizzaPage = true;
+            }
+
+            public void showDessertPage()
+            {
+                ReloadDeesertPage = true;
             }
 
             public void startLoadPagePizza()
@@ -84,11 +120,12 @@ namespace WpfApp1
         #region fonction asynchrone utilisée pour verifier si le panier est modifier pour faire une mise à jour de l'affichage
         private async void check()
         {
-            int nbrPizzaPanier = Panier.getNombreTypePizzaPanier();
+            int nbrPizzaPanier = Panier.getNombrePanier();
             if (nbrPizzaPanier != 0)
             {
                 qte.Text = Convert.ToString(nbrPizzaPanier);
-                prixPanierLabel.Content = "$ " + Convert.ToString(Panier.getPrixPanier());
+                prixPanierLabel.Content = "‎€ " + Convert.ToString(Panier.getPrixPanier());
+                prixPanierLabel_c.Content = "‎€ " + Convert.ToString(Panier.getPrixPanier());
 
                 qte.Visibility = Visibility.Visible;
                 prixPanierLabel.Visibility = Visibility.Visible;
@@ -100,7 +137,7 @@ namespace WpfApp1
             }
             bool t = await Task.Run(() =>
             {
-                while (!fileChage)
+                while (!fileChange)
                 {
 
                 }
@@ -109,13 +146,145 @@ namespace WpfApp1
             );
             if (t)
             {
-                fileChage = false;
+                fileChange = false;
+                updateGraphiqueFonction(pagePanier);
                 check();
             }
 
         }
 
+
+        private async void checkReloadPagePizza()
+        {
+            /*int nbrPizzaPanier = Panier.getNombreTypePizzaPanier();
+            if (nbrPizzaPanier != 0)
+            {
+                qte.Text = Convert.ToString(nbrPizzaPanier);
+                prixPanierLabel.Content = "‎€ " + Convert.ToString(Panier.getPrixPanier());
+                prixPanierLabel_c.Content = "‎€ " + Convert.ToString(Panier.getPrixPanier());
+
+                qte.Visibility = Visibility.Visible;
+                prixPanierLabel.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                qte.Visibility = Visibility.Hidden;
+                prixPanierLabel.Visibility = Visibility.Hidden;
+            }*/
+            bool t = await Task.Run(() =>
+            {
+                while (!ReloadPizzaPage && !ReloadDeesertPage)
+                {
+
+                }
+                return true;
+            }
+            );
+            if (t)
+            {
+                if (ReloadPizzaPage == true)
+                {
+                    ReloadPizzaPage = false;
+                    wbMain.Source = new Uri("pack://siteoforigin:,,,/pizzapage.html");
+                    checkReloadPagePizza();
+                }
+
+                if (ReloadDeesertPage == true)
+                {
+                    ReloadDeesertPage = false;
+                    wbMain.Source = new Uri("pack://siteoforigin:,,,/dessertPage.html");
+                    checkReloadPagePizza();
+                }
+
+            }
+
+        }
+
         #endregion
+
+        // me permet de mettre à jour le graphique de mon panier
+        public void updateGraphiqueFonction(int i)
+        {
+            //ici je modifie graphique mon panier
+            List<PizzaCommande> LC = Panier.getPanierUser();
+            List<DessertComande> LD = Panier.getPanierDessertUser();
+
+            if(LD != null){
+                LD.ForEach(a =>
+                {
+                    PizzaCommande p = new PizzaCommande(a.Nom,a.Image, a.Prix, a.Qte);
+                    LC.Add(p);
+                });
+            }
+            if (LC != null)
+            {
+                LC.Reverse();
+                int it = 0;
+                int largeur = 70;
+                int incrementationTotal = 0;
+                int bases = it;
+                if (LC != null && LC.Count != 0)
+                {
+                    boutPanier.Children.RemoveRange(0, boutPanier.Children.Count);
+                    foreach (PizzaCommande p in LC)
+                    {
+
+                        if (incrementationTotal >= i)
+                        {
+                            it++;
+                        }
+
+                        if (it == 3)
+                        {
+                            break;
+                        }
+                        else if (it > 0)
+                        {
+                            Image finalImage = new Image();
+                            finalImage.Width = 80;
+                            BitmapImage logo = new BitmapImage();
+                            logo.BeginInit();
+                            logo.UriSource = new Uri(p.Image);
+                            logo.EndInit();
+                            finalImage.Source = logo;
+
+
+                            Label label = new Label();
+                            label.Height = 70;
+                            label.Width = 100;
+                            label.Content = p.Nom;
+                            label.Background = Brushes.Transparent;
+
+                            Label qte = new Label();
+                            qte.Height = 70;
+                            qte.Width = 100;
+                            qte.Content = Convert.ToString(p.Qte) + " x ‎€" + Convert.ToString(p.Prix[0].Prix);
+                            qte.Background = Brushes.Transparent;
+
+                            Canvas.SetLeft(label, largeur);
+                            Canvas.SetTop(label, 10);
+
+                            Canvas.SetLeft(qte, largeur);
+                            Canvas.SetTop(qte, 27);
+
+
+                            largeur += 200;
+
+
+                            Canvas.SetLeft(finalImage, (it - 1) * 200);
+                            Canvas.SetTop(finalImage, 10);
+
+                            label.FontWeight = FontWeights.Bold;
+
+                            boutPanier.Children.Add(qte);
+                            boutPanier.Children.Add(label);
+                            boutPanier.Children.Add(finalImage);
+                        }
+                        incrementationTotal++;
+                    }
+                }
+            }
+        }
 
         public PizzaPage()
         {
@@ -126,18 +295,23 @@ namespace WpfApp1
             string[] args = Environment.GetCommandLineArgs();
 
             fileSystemWatcher.Path = args[0].Replace("WpfApp1.exe", "");
-            fileSystemWatcher.Filter = "panier.txt";
+            fileSystemWatcher.Filter = "*.txt";
 
-            fileSystemWatcher.Changed += delegate (object sender, FileSystemEventArgs e) { fileChage = true; };
+            fileSystemWatcher.Changed += delegate (object sender, FileSystemEventArgs e) { fileChange = true; };
 
 
             fileSystemWatcher.EnableRaisingEvents = true;
 
             Cata = new CataloguePizzeria();
             InitializeComponent();
+            panierUp.Visibility = Visibility.Hidden;
+            panierDown.Visibility = Visibility.Hidden;
+            updateGraphiqueFonction(0);
+
             BordureboutPanier.Visibility = Visibility.Hidden;
             wbMain.ObjectForScripting = helper;
             check();
+            checkReloadPagePizza();
         }
 
         // cette événement me permet de savoir la page est chargé en mémoire, ensuite j'envoie mes données
@@ -154,20 +328,24 @@ namespace WpfApp1
                 //permet de verifier ceux qui ont déja été choisi
                 foreach (Pizzeria p in lP)
                 {
-                    int i = 0;
                     foreach (Pizza pizza in p.LPizza)
                     {
                         PizzaCommande pizzaCommande = Panier.RechercherPizzaPanier(pizza.Id);
                         if (pizzaCommande != null)
                         {
-                            if (pizzaCommande != null)
-                            {
                                 pizza.Nom = p.LPizza[pizza.Id].Nom + "||" + pizzaCommande.Qte + "||" + pizzaCommande.Prix[0].Nom;
-                            }
                         }
-
-                        i++;
                     }
+
+                    foreach (Dessert dessert in p.LDessert)
+                    {
+                        DessertComande dessertCommande = Panier.RechercherDesserPanier(dessert.Id);
+                        if (dessertCommande != null)
+                        {
+                            dessert.Nom = p.LPizza[dessert.Id].Nom + "||" + dessertCommande.Qte ;
+                        }
+                    }
+
                     lPC.Add(p);
                 }
 
@@ -181,7 +359,7 @@ namespace WpfApp1
                 if (lP != null)
                 {
                     // cette fonction permet d'invoqué une méthode javascript appelé WriteFromExternals avec mon catalogue de pizzeria qui sera traité la bas
-                    wbMain.InvokeScript("WriteFromExternals", json);
+                    wbMain.InvokeScript("sendDataToJavascript", json);
                     //
                 }
                 else
@@ -197,10 +375,14 @@ namespace WpfApp1
         {
             if (clickPanier % 2 == 0)
             {
+                panierUp.Visibility = Visibility.Visible;
+                panierDown.Visibility = Visibility.Visible;
                 BordureboutPanier.Visibility = Visibility.Visible;
             }
             else
             {
+                panierUp.Visibility = Visibility.Hidden;
+                panierDown.Visibility = Visibility.Hidden;
                 BordureboutPanier.Visibility = Visibility.Hidden;
             }
             clickPanier++;
@@ -211,7 +393,7 @@ namespace WpfApp1
         private void pageLcik(object sender, RoutedEventArgs e)
         {
 
-            BordureboutPanier.Visibility = Visibility.Hidden;
+            //BordureboutPanier.Visibility = Visibility.Hidden;
 
         }
 
@@ -245,5 +427,54 @@ namespace WpfApp1
             PageHome p = new PageHome();
             MainWindow.fenetrePrincipal.Content = p;
         }
+
+        private void PanierUp_Click(object sender, RoutedEventArgs e)
+        {
+            if (pagePanier != 0)
+            {
+                pagePanier-=2;
+                updateGraphiqueFonction(pagePanier);
+            }
+        }
+
+        private void PanierDown_Click(object sender, RoutedEventArgs e)
+        {
+            List<PizzaCommande> LC = Panier.getPanierUser();
+            List<DessertComande> LD = Panier.getPanierDessertUser();
+            int o = 0;
+            if (LC != null)
+            {
+                o += LC.Count;
+            }
+
+            if (LD != null)
+            {
+                o += LD.Count;
+            }
+            if (pagePanier+2 < o)
+            {
+                pagePanier += 2;
+                updateGraphiqueFonction(pagePanier);
+            }
+        }
+
+        private void checkOutButton_Click(object sender, RoutedEventArgs e)
+        {
+            // me permet d'appeler la page qui sera charger de faire la mise à jour
+            wbMain.Source = new Uri("pack://siteoforigin:,,,/pageCheckOut.html");
+        }
+
+
+        #region me permet de faire des animations sur le boutton update
+        private void Update_MouseEnter(object sender, MouseEventArgs e)
+        {
+            ((Button)sender).Background = new SolidColorBrush(Color.FromArgb(36, 160, 36, 255));
+        }
+
+        private void Update_MouseLeave(object sender, MouseEventArgs e)
+        {
+            ((Button)sender).Background = Brushes.Transparent;
+        }
+        #endregion
     }
 }
