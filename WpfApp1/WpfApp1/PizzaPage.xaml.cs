@@ -34,6 +34,7 @@ namespace WpfApp1
         public static bool ReloadPizzaPage = false;
         public static bool ReloadDeesertPage = false;
         public static Panier panier;
+        public double valeurMaximalDUnProduit;
 
 
         #region me permet de faire une communication javascript vers WPF de mon compasant webBrowser
@@ -306,6 +307,7 @@ namespace WpfApp1
 
             Cata = new CataloguePizzeria();
             InitializeComponent();
+            slValue.Value = CataloguePizzeria.PrixMaximal();
             panierUp.Visibility = Visibility.Hidden;
             panierDown.Visibility = Visibility.Hidden;
             updateGraphiqueFonction(0);
@@ -326,6 +328,7 @@ namespace WpfApp1
                 string json = r.ReadToEnd();
                 lP = JsonConvert.DeserializeObject<List<Pizzeria>>(json);
                 List<Pizzeria> lPC = new List<Pizzeria>();
+                
 
                 //permet de verifier ceux qui ont déja été choisi
                 foreach (Pizzeria p in lP)
@@ -336,7 +339,9 @@ namespace WpfApp1
                         PizzaCommande pizzaCommande = panier.Panierpizza.RechercherPizzaPanier(pizza.Id);
                         if (pizzaCommande != null)
                         {
-                                pizza.Nom = p.LPizza[pizza.Id].Nom + "||" + pizzaCommande.Qte + "||" + pizzaCommande.Prix[0].Nom;
+                            pizza.Nom = pizza.Nom +
+                                "||" + pizzaCommande.Qte +
+                                "||" + pizzaCommande.Prix[0].Nom;
                         }
                     }
 
@@ -355,7 +360,7 @@ namespace WpfApp1
 
                 json=JsonConvert.SerializeObject(lPC.ToArray());
 
-
+                Cata = new CataloguePizzeria();
                 foreach (Pizzeria p in lP)
                 {
                     Cata.AjouterPizzeria(p);
@@ -480,5 +485,80 @@ namespace WpfApp1
             ((Button)sender).Background = Brushes.Transparent;
         }
         #endregion
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            filtrageFunction();
+        }
+
+        private void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            if(((Slider) sender).Value != CataloguePizzeria.PrixMaximal())
+            {
+                filtrageFunction();
+            }
+        }
+
+        private void filtrageFunction()
+        {
+            double prixSelectionne = slValue.Value;
+            String Recherche = "";
+            Recherche += search.Text;
+            List<Pizzeria> LFiltrer = new List<Pizzeria>();
+
+            // je vais utilisez les expressions lambda pour faire le filtrage
+            List<Pizzeria> LSC = Cata.Catalogue;
+
+            
+
+            #region elle me permet de faire le filtrage de ma liste
+            LSC.ForEach(pizzeria =>
+            {
+                Pizzeria pTmp = new Pizzeria();
+                pTmp.Emplacement = pizzeria.Emplacement;
+                pTmp.Nom = pizzeria.Nom;
+                pTmp.SiteWeb = pizzeria.SiteWeb;
+
+                pizzeria.LPizza.ForEach(pizza =>
+                {
+                    // verifier si elle contient le prix pour les pizza
+                    bool reponse = false;
+                    foreach (PrixDetaille prixdetaille in pizza.Prix)
+                    {
+                        if (prixdetaille.Prix <= prixSelectionne)
+                        {
+                            reponse = true;
+                        }
+                    }
+                    if (pizza.Nom.Contains(Recherche.ToUpper()) == true && reponse == true)
+                    {
+                        pTmp.AjouterPizza(pizza);
+                    }
+                });
+
+                pizzeria.LDessert.ForEach(dessert =>
+                {
+                    // verifier si elle contient le prix pour les dessert
+                    if (dessert.Nom.Contains(Recherche.ToUpper()) == true && dessert.Prix<= prixSelectionne)
+                    {
+                        if(dessert.Image=="" || dessert.Image == null)
+                        {
+                            dessert.Image = "rien";
+                        }
+                        pTmp.AjouterDessert(dessert);
+                    }
+                });
+
+                LFiltrer.Add(pTmp);
+            });
+            #endregion
+
+            String json = JsonConvert.SerializeObject(LFiltrer.ToArray());
+
+            // cette fonction permet d'invoqué une méthode javascript appelé WriteFromExternals avec mon catalogue de pizzeria qui sera traité la bas
+            wbMain.InvokeScript("sendDataToJavascript", json);
+                //
+        }
+        
     }
 }
