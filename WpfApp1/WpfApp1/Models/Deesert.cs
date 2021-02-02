@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WpfApp1.Models
 {
-    class Dessert : Article
+    public class Dessert
     {
         private String nom;
         private String type;

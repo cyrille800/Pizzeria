@@ -58,11 +58,11 @@ namespace WpfApp1
             // site2
             try
             {
-                C.AjouterPizzeria(C.Scrapping(Pizzeria.AlloPizza, C.Catalogue.First().LPizza.Count));
+                C.AjouterPizzeria(C.Scrapping(Pizzeria.AlloPizza, C.Catalogue.First().LPizza.Last().Id+ C.Catalogue.First().LDessert.Last().Id+ 2));
             }
             catch (Exception e)
             {
-                C.AjouterPizzeria(C.Scrapping(Pizzeria.AlloPizza, C.Catalogue.First().LPizza.Count));
+                C.AjouterPizzeria(C.Scrapping(Pizzeria.AlloPizza, C.Catalogue.First().LPizza.Last().Id + C.Catalogue.First().LDessert.Last().Id + 2));
             }
 
 

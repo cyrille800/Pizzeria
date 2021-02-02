@@ -24,18 +24,19 @@ namespace WpfApp1
     /// </summary>
     public partial class PageHome : Page
     {
-
+        public static Panier panier;
         LoadPage loadPage;
 
         public PageHome()
         {
             InitializeComponent();
+            panier = new Panier();
             loadPage = null;
             List<Pizzeria> lP = null;
 
             // permet d'initialiser les valeurs d'affichages du panier
-            qte.Text = Convert.ToString(Panier.getNombrePanier());
-            prixPanierLabel.Content = "$ " + Convert.ToString(Panier.getPrixPanier());
+            qte.Text = Convert.ToString(panier.getNombreElementDansPanier());
+            prixPanierLabel.Content = "$ " + Convert.ToString(panier.getPrixPanier());
 
             // je stocke toutes mes informations sur les produits de type pizza dans un fichier appelé dataPizza.txt
             #region me permet de récupérer les pizzas que j'ai scrappé (Recolter)

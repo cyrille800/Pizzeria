@@ -100,6 +100,9 @@
     <Compile Include="Models\CataloguePizzeria.cs" />
     <Compile Include="Models\Article.cs" />
     <Compile Include="Models\DessertComande.cs" />
+    <Compile Include="Models\panierInterface.cs" />
+    <Compile Include="Models\PanierDessert.cs" />
+    <Compile Include="Models\PanierPizza.cs" />
     <Compile Include="Models\PizzaCommande.cs" />
     <Compile Include="Models\Deesert.cs" />
     <Compile Include="Models\Panier.cs" />

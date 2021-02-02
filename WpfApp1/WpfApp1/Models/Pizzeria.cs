@@ -219,8 +219,8 @@ namespace WpfApp1.Models
                             piz.Prix = prix;
                             piz.Type = type;
                             p.AjouterPizza(piz);
+                            pizzaActif++;
                         }
-                        pizzaActif++;
                     }
                 }
                 #endregion
@@ -262,8 +262,8 @@ namespace WpfApp1.Models
                             piz.Prix = Convert.ToDouble(ls[0]);
                             piz.Type = type;
                             p.AjouterDessert(piz);
+                            pizzaActif++;
                         }
-                        pizzaActif++;
                     }
                 }
                 #endregion
@@ -382,8 +382,8 @@ namespace WpfApp1.Models
                             piz.Prix = prix;
                             piz.Type = type;
                             p.AjouterPizza(piz);
+                            pizzaActif++;
                         }
-                        pizzaActif++;
                     }
                 }
                 #endregion
@@ -425,8 +425,8 @@ namespace WpfApp1.Models
                             piz.Prix = Convert.ToDouble(ls[0]);
                             piz.Type = type;
                             p.AjouterDessert(piz);
+                            pizzaActif++;
                         }
-                        pizzaActif++;
                     }
                 }
                 #endregion

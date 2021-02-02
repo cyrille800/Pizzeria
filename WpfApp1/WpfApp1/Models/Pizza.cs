@@ -54,7 +54,7 @@ namespace WpfApp1.Models
         }
 
     }
-    class Pizza
+    public class Pizza
     {
         protected String nom;
         protected List<Ingredient> ingrediant;

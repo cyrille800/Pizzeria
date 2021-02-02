@@ -33,6 +33,7 @@ namespace WpfApp1
         public static int pagePanier = 0;
         public static bool ReloadPizzaPage = false;
         public static bool ReloadDeesertPage = false;
+        public static Panier panier;
 
 
         #region me permet de faire une communication javascript vers WPF de mon compasant webBrowser
@@ -65,7 +66,7 @@ namespace WpfApp1
                 }
 
                 PizzaCommande pc = new PizzaCommande(p, Convert.ToInt32(qte));
-                Panier.AjouterPizzaCommande(pc);
+                panier.Panierpizza.AjouterPizzaPanier(pc);
             }
 
             public void AddPanierDessert(String id)
@@ -83,17 +84,17 @@ namespace WpfApp1
                 }
 
                 DessertComande pc = new DessertComande(p,1);
-                Panier.AjouterDessertCommande(pc);
+                panier.Panierdessert.AjouterDessertPanier(pc);
             }
 
             public void AddPanierModifierValeur(String id, String qte)
             {
-                Panier.Modifierpanier(Convert.ToInt32(id), Convert.ToInt32(qte));
+                panier.Panierpizza.ModifierpanierPizza(Convert.ToInt32(id), Convert.ToInt32(qte));
             }
 
             public void AddPanierModifierValeurDessert(String id, String qte)
             {
-                Panier.ModifierpanierDessert(Convert.ToInt32(id), Convert.ToInt32(qte));
+                panier.Panierdessert.ModifierpanierDessert(Convert.ToInt32(id), Convert.ToInt32(qte));
             }
 
             public void showPizzaPage()
@@ -120,12 +121,12 @@ namespace WpfApp1
         #region fonction asynchrone utilisée pour verifier si le panier est modifier pour faire une mise à jour de l'affichage
         private async void check()
         {
-            int nbrPizzaPanier = Panier.getNombrePanier();
+            int nbrPizzaPanier = panier.getNombreElementDansPanier();
             if (nbrPizzaPanier != 0)
             {
                 qte.Text = Convert.ToString(nbrPizzaPanier);
-                prixPanierLabel.Content = "‎€ " + Convert.ToString(Panier.getPrixPanier());
-                prixPanierLabel_c.Content = "‎€ " + Convert.ToString(Panier.getPrixPanier());
+                prixPanierLabel.Content = "‎€ " + Convert.ToString(panier.getPrixPanier());
+                prixPanierLabel_c.Content = "‎€ " + Convert.ToString(panier.getPrixPanier());
 
                 qte.Visibility = Visibility.Visible;
                 prixPanierLabel.Visibility = Visibility.Visible;
@@ -206,8 +207,8 @@ namespace WpfApp1
         public void updateGraphiqueFonction(int i)
         {
             //ici je modifie graphique mon panier
-            List<PizzaCommande> LC = Panier.getPanierUser();
-            List<DessertComande> LD = Panier.getPanierDessertUser();
+            List<PizzaCommande> LC = panier.Panierpizza.getPanierPiizaUser();
+            List<DessertComande> LD = panier.Panierdessert.getPanierDessertUser();
 
             if(LD != null){
                 LD.ForEach(a =>
@@ -288,6 +289,7 @@ namespace WpfApp1
 
         public PizzaPage()
         {
+            panier = new Panier();
             helper = new ObjectForScriptingHelper();
 
             FileSystemWatcher fileSystemWatcher = new FileSystemWatcher();
@@ -328,18 +330,20 @@ namespace WpfApp1
                 //permet de verifier ceux qui ont déja été choisi
                 foreach (Pizzeria p in lP)
                 {
+                    // permet de verifier les pizzas déja choisi
                     foreach (Pizza pizza in p.LPizza)
                     {
-                        PizzaCommande pizzaCommande = Panier.RechercherPizzaPanier(pizza.Id);
+                        PizzaCommande pizzaCommande = panier.Panierpizza.RechercherPizzaPanier(pizza.Id);
                         if (pizzaCommande != null)
                         {
                                 pizza.Nom = p.LPizza[pizza.Id].Nom + "||" + pizzaCommande.Qte + "||" + pizzaCommande.Prix[0].Nom;
                         }
                     }
 
+                    // permet de verifier les desserts déja choisi
                     foreach (Dessert dessert in p.LDessert)
                     {
-                        DessertComande dessertCommande = Panier.RechercherDesserPanier(dessert.Id);
+                        DessertComande dessertCommande = panier.Panierdessert.RechercherDesserPanier(dessert.Id);
                         if (dessertCommande != null)
                         {
                             dessert.Nom = p.LPizza[dessert.Id].Nom + "||" + dessertCommande.Qte ;
@@ -439,8 +443,8 @@ namespace WpfApp1
 
         private void PanierDown_Click(object sender, RoutedEventArgs e)
         {
-            List<PizzaCommande> LC = Panier.getPanierUser();
-            List<DessertComande> LD = Panier.getPanierDessertUser();
+            List<PizzaCommande> LC = panier.Panierpizza.getPanierPiizaUser();
+            List<DessertComande> LD = panier.Panierdessert.getPanierDessertUser();
             int o = 0;
             if (LC != null)
             {

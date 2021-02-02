@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WpfApp1.Models
 {
-    class DessertComande : Dessert
+    public class DessertComande : Dessert
     {
         private int qte;
 
