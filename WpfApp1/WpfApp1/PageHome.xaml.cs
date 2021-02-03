@@ -30,6 +30,7 @@ namespace WpfApp1
         public PageHome()
         {
             InitializeComponent();
+            fondHidden.Visibility = Visibility.Hidden;
             panier = new Panier();
             loadPage = null;
             List<Pizzeria> lP = null;
@@ -61,6 +62,13 @@ namespace WpfApp1
             loadPage.Show();
         }
 
+        private void Update_ClickLogin(object sender, RoutedEventArgs e)
+        {
+            fondHidden.Visibility = Visibility.Visible;
+            login l = new login();
+            l.Show();
+        }
+
 
         #region me permet de faire des animations sur le boutton update
         private void Update_MouseEnter(object sender, MouseEventArgs e)
@@ -69,6 +77,19 @@ namespace WpfApp1
         }
 
         private void Update_MouseLeave(object sender, MouseEventArgs e)
+        {
+            ((Button)sender).Background = Brushes.Transparent;
+        }
+        #endregion
+
+        #region me permet de faire des animations sur le boutton login
+
+        private void Update_MouseEnterLogin(object sender, MouseEventArgs e)
+        {
+            ((Button)sender).Background = new SolidColorBrush(Color.FromArgb(36, 160, 36, 255));
+        }
+
+        private void Update_MouseLeaveLogin(object sender, MouseEventArgs e)
         {
             ((Button)sender).Background = Brushes.Transparent;
         }

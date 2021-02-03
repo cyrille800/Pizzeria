@@ -120,8 +120,12 @@ namespace WpfApp1.Models
 
             return d;
         }
-        
 
-
+        public void viderpanier()
+        {
+            List<DessertComande> Lp = new List<DessertComande>();
+            string json = JsonConvert.SerializeObject(Lp.ToArray());
+            System.IO.File.WriteAllText(@"panierDessert.txt", json);
+        }
     }
 }

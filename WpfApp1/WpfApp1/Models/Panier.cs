@@ -41,5 +41,9 @@ namespace WpfApp1.Models
         {
             return panierpizza.getPrixPanier() + panierdessert.getPrixPanier();
         }
+
+        public void viderpanier()
+        {
+        }
     }
 }

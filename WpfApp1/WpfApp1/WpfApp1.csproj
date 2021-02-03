@@ -72,6 +72,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="login.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -82,6 +86,9 @@
     </Compile>
     <Compile Include="LoadPage.xaml.cs">
       <DependentUpon>LoadPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="login.xaml.cs">
+      <DependentUpon>login.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -99,10 +106,14 @@
   <ItemGroup>
     <Compile Include="Models\CataloguePizzeria.cs" />
     <Compile Include="Models\Article.cs" />
+    <Compile Include="Models\Client.cs" />
+    <Compile Include="Models\Commande.cs" />
     <Compile Include="Models\DessertComande.cs" />
+    <Compile Include="Models\Livreur.cs" />
     <Compile Include="Models\panierInterface.cs" />
     <Compile Include="Models\PanierDessert.cs" />
     <Compile Include="Models\PanierPizza.cs" />
+    <Compile Include="Models\Personne.cs" />
     <Compile Include="Models\PizzaCommande.cs" />
     <Compile Include="Models\Deesert.cs" />
     <Compile Include="Models\Panier.cs" />

@@ -123,5 +123,13 @@ namespace WpfApp1.Models
 
             return null;
         }
+
+        public void viderpanier()
+        {
+            List<PizzaCommande> Lp = new List<PizzaCommande>();
+            string json = JsonConvert.SerializeObject(Lp.ToArray());
+            System.IO.File.WriteAllText(@"panier.txt", json);
+        }
+
     }
 }

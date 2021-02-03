@@ -108,6 +108,29 @@ namespace WpfApp1
                 ReloadDeesertPage = true;
             }
 
+            public void createCommane(String nom, String prenom, String adresse, String numero)
+            {
+                long n = Convert.ToInt64(numero);
+                Livreur libre = Livreur.getLivreurLibre();
+                if(libre == null)
+                {
+                    ReloadDeesertPage = true;
+                    MessageBox.Show("il ya pas de livreur disponible, revenez apres");
+                }
+                else
+                {
+                    Client c = new Client(Client.getLastIdClient()+1, nom, prenom, n, adresse);
+                    Client.AjouterClient(c);
+                    Panier p = new Panier();
+                    Commande com = new Commande(Commande.getLastIdCommande()+1,libre.IdPersonne,DateTime.Now,"cuisine",DateTime.Now.AddHours(1),p.Panierpizza.getPanierPiizaUser(),p.Panierdessert.getPanierDessertUser(), libre, c);
+                    Commande.AjouterCommande(com);
+                    Livreur.ModifierStatutLivreur(libre.IdPersonne, "occupe");
+
+                    p.Panierdessert.viderpanier();
+                    p.Panierpizza.viderpanier();
+                }
+            }
+
             public void startLoadPagePizza()
             {
                 chargement = true;
@@ -351,7 +374,7 @@ namespace WpfApp1
                         DessertComande dessertCommande = panier.Panierdessert.RechercherDesserPanier(dessert.Id);
                         if (dessertCommande != null)
                         {
-                            dessert.Nom = p.LPizza[dessert.Id].Nom + "||" + dessertCommande.Qte ;
+                            dessert.Nom = dessert.Nom + "||" + dessertCommande.Qte ;
                         }
                     }
 
@@ -522,14 +545,8 @@ namespace WpfApp1
                 pizzeria.LPizza.ForEach(pizza =>
                 {
                     // verifier si elle contient le prix pour les pizza
-                    bool reponse = false;
-                    foreach (PrixDetaille prixdetaille in pizza.Prix)
-                    {
-                        if (prixdetaille.Prix <= prixSelectionne)
-                        {
-                            reponse = true;
-                        }
-                    }
+                    bool reponse = pizza.Prix.Exists(x => x.Prix <= prixSelectionne);
+                    
                     if (pizza.Nom.Contains(Recherche.ToUpper()) == true && reponse == true)
                     {
                         pTmp.AjouterPizza(pizza);
@@ -541,10 +558,6 @@ namespace WpfApp1
                     // verifier si elle contient le prix pour les dessert
                     if (dessert.Nom.Contains(Recherche.ToUpper()) == true && dessert.Prix<= prixSelectionne)
                     {
-                        if(dessert.Image=="" || dessert.Image == null)
-                        {
-                            dessert.Image = "rien";
-                        }
                         pTmp.AjouterDessert(dessert);
                     }
                 });

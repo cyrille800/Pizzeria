@@ -10,6 +10,7 @@ namespace WpfApp1.Models
     {
         int getNombreElementDansPanier();
         double getPrixPanier();
+        void viderpanier();
 
     }
 }
