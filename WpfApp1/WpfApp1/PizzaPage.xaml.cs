@@ -270,6 +270,7 @@ namespace WpfApp1
                             BitmapImage logo = new BitmapImage();
                             logo.BeginInit();
                             logo.UriSource = new Uri(p.Image);
+
                             logo.EndInit();
                             finalImage.Source = logo;
 

@@ -41,13 +41,17 @@ namespace WpfApp1
 
             // je stocke toutes mes informations sur les produits de type pizza dans un fichier appelé dataPizza.txt
             #region me permet de récupérer les pizzas que j'ai scrappé (Recolter)
-            using (StreamReader r = new StreamReader("dataPizza.txt"))
+            string curFile = @"dataPizza.txt";
+            if (File.Exists(curFile) == true)
             {
-                string json = r.ReadToEnd();
-                lP = JsonConvert.DeserializeObject<List<Pizzeria>>(json);
-                if (lP == null)
+                using (StreamReader r = new StreamReader("dataPizza.txt"))
                 {
-                    MessageBox.Show("click on the update button of the main interface to update the program");
+                    string json = r.ReadToEnd();
+                    lP = JsonConvert.DeserializeObject<List<Pizzeria>>(json);
+                    if (lP == null)
+                    {
+                        MessageBox.Show("click on the update button of the main interface to update the program");
+                    }
                 }
             }
             #endregion

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace WpfApp1.Models
 {
-    public class Livreur: Personne
+    public class Livreur: Personne, IComparable<Livreur>
     {
         String statut;
         String typeVehicule;
@@ -49,6 +49,27 @@ namespace WpfApp1.Models
                     if (x.IdPersonne == idLivreur)
                     {
                         x.statut = statut;
+                    }
+                });
+
+                string json = JsonConvert.SerializeObject(Lp.ToArray());
+                System.IO.File.WriteAllText(@"livreur.txt", json);
+            }
+        }
+
+        public static void ModifierLivreur(int idLivreur, String nom,String prenom,long numero,String typeVelicule)
+        {
+            List<Livreur> Lp = getListeLivreur();
+            if (Lp != null)
+            {
+                Lp.ForEach(x =>
+                {
+                    if (x.IdPersonne == idLivreur)
+                    {
+                        x.Nom = nom;
+                        x.Prenom = prenom;
+                        x.Numero = numero;
+                        x.TypeVehicule = typeVelicule;
                     }
                 });
 
@@ -103,11 +124,34 @@ namespace WpfApp1.Models
             }
         }
 
+        public static Livreur GetLivreur(int id)
+        {
+            List<Livreur> Lp = getListeLivreur();
+            if (Lp == null)
+            {
+                return null;
+            }
+            else
+            {
+                return Lp.Find(x => x.IdPersonne == id);
+            }
+        }
+
         public override bool Equals(object obj)
         {
             var livreur = obj as Livreur;
             return livreur != null &&
                    numero == livreur.numero;
+        }
+
+        public int CompareTo(Livreur other)
+        {
+            return idPersonne.CompareTo(other.idPersonne);
+        }
+
+        public string ToString()
+        {
+            return "IdPersonne : " + IdPersonne +", Nom du Livreur : " + Nom + " Prénom du Livreur : " + Prenom + " Numéro du Livreur : " + Numero + " Statut : "+ Statut + " Type de véhicule : " + typeVehicule;
         }
     }
 }

@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-D:\cours\programmation poo avance\projet\UserPizzeria\WpfApp1\WpfApp1\obj\Debug\
+C:\Users\willi\OneDrive\Documents\Cours ESILV\A3\POO Avancée\Projet\UserPizzeria\WpfApp1\WpfApp1\obj\Debug\
 WpfApp1
 none
 false
 DEBUG;TRACE
-D:\cours\programmation poo avance\projet\UserPizzeria\WpfApp1\WpfApp1\App.xaml
-81489726303
+C:\Users\willi\OneDrive\Documents\Cours ESILV\A3\POO Avancée\Projet\UserPizzeria\WpfApp1\WpfApp1\App.xaml
+101900249014
 
-28183432544
-18694287832
-gestion.xaml;GestionCommande.xaml;LoadPage.xaml;login.xaml;MainWindow.xaml;GestionIndex.xaml;PageHome.xaml;PizzaPage.xaml;
+30-1413093906
+181434064746
+effectif.xaml;gestion.xaml;GestionCommande.xaml;GestionLivreur.xaml;LoadPage.xaml;login.xaml;MainWindow.xaml;GestionIndex.xaml;PageHome.xaml;PizzaPage.xaml;
 
 False
 

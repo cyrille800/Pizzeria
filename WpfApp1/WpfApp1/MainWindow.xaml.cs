@@ -34,12 +34,7 @@ namespace WpfApp1
 
         public MainWindow()
         {
-           /*Livreur.AjouterLivreur(new Livreur(Livreur.getLastIdLivreur()+1, "fdsq", "jfdsi", 699875176, "libre", "velo"));
-            Livreur.AjouterLivreur(new Livreur(Livreur.getLastIdLivreur()+1, "ipoiq", "zaeoi", 752272593, "libre", "velo"));
-            Livreur.AjouterLivreur(new Livreur(Livreur.getLastIdLivreur()+1, "roro", "nana", 694228592, "libre", "voiture"));
-            Livreur.AjouterLivreur(new Livreur(Livreur.getLastIdLivreur()+1, "popo", "dgdgd", 672748596, "congé", "moto"));
-            Livreur.AjouterLivreur(new Livreur(Livreur.getLastIdLivreur() + 1, "onana", "dg", 672748587, "libre", "bus"));*/
-
+          
 
             // il faut installé ca Install-Package WpfAnimatedGif -Version 2.0.0 dans package manager
 

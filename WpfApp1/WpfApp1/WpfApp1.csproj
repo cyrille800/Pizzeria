@@ -68,11 +68,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="effectif.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="gestion.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="GestionCommande.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GestionLivreur.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -92,11 +100,17 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="effectif.xaml.cs">
+      <DependentUpon>effectif.xaml</DependentUpon>
+    </Compile>
     <Compile Include="gestion.xaml.cs">
       <DependentUpon>gestion.xaml</DependentUpon>
     </Compile>
     <Compile Include="GestionCommande.xaml.cs">
       <DependentUpon>GestionCommande.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GestionLivreur.xaml.cs">
+      <DependentUpon>GestionLivreur.xaml</DependentUpon>
     </Compile>
     <Compile Include="LoadPage.xaml.cs">
       <DependentUpon>LoadPage.xaml</DependentUpon>

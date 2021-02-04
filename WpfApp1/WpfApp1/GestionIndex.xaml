@@ -10,7 +10,7 @@
       >
 
     <Grid>
-        <Button Content="Effectif/ Client" HorizontalAlignment="Left" Margin="219,177,0,0" VerticalAlignment="Top" Width="180" Height="69"/>
+        <Button Content="Effectif/ Client" HorizontalAlignment="Left" Margin="219,177,0,0" VerticalAlignment="Top" Width="180" Height="69" Click="Button_Click_1"/>
         <Button Content="Commandes" HorizontalAlignment="Left" Margin="457,177,0,0" VerticalAlignment="Top" Width="180" Height="69" Click="Button_Click"/>
 
     </Grid>

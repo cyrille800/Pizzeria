@@ -29,5 +29,10 @@ namespace WpfApp1
         {
             gestion.pagePrinicipal.Content = new GestionCommande();
         }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            gestion.pagePrinicipal.Content = new effectif();
+        }
     }
 }
