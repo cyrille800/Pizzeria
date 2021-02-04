@@ -110,6 +110,8 @@ namespace WpfApp1.Models
             return false;
         }
 
+
+        // permet de scrapper les informations du site https://www.italiano-pizza.fr/index
         public static Pizzeria ItalianoPizza(int pizzaActif)
         {
             Pizzeria p = new Pizzeria();
@@ -276,6 +278,7 @@ namespace WpfApp1.Models
         }
 
 
+        // permet de scrapper les informations du site https://www.allopizza94.com/index
         public static Pizzeria AlloPizza(int pizzaActif = 0)
         {
             Pizzeria p = new Pizzeria();

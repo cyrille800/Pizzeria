@@ -68,6 +68,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="gestion.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GestionCommande.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="LoadPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -84,6 +92,12 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="gestion.xaml.cs">
+      <DependentUpon>gestion.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GestionCommande.xaml.cs">
+      <DependentUpon>GestionCommande.xaml</DependentUpon>
+    </Compile>
     <Compile Include="LoadPage.xaml.cs">
       <DependentUpon>LoadPage.xaml</DependentUpon>
     </Compile>
@@ -94,6 +108,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="GestionIndex.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="PageHome.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -109,8 +127,9 @@
     <Compile Include="Models\Client.cs" />
     <Compile Include="Models\Commande.cs" />
     <Compile Include="Models\DessertComande.cs" />
+    <Compile Include="Models\Iprix.cs" />
     <Compile Include="Models\Livreur.cs" />
-    <Compile Include="Models\panierInterface.cs" />
+    <Compile Include="Models\IpanierInterface.cs" />
     <Compile Include="Models\PanierDessert.cs" />
     <Compile Include="Models\PanierPizza.cs" />
     <Compile Include="Models\Personne.cs" />
@@ -119,6 +138,9 @@
     <Compile Include="Models\Panier.cs" />
     <Compile Include="Models\Pizza.cs" />
     <Compile Include="Models\Pizzeria.cs" />
+    <Compile Include="GestionIndex.xaml.cs">
+      <DependentUpon>GestionIndex.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PageHome.xaml.cs">
       <DependentUpon>PageHome.xaml</DependentUpon>
     </Compile>

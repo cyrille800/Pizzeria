@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace WpfApp1.Models
 {
-    public class PanierPizza : panierInterface
+    public class PanierPizza : IpanierInterface
     {
 
 

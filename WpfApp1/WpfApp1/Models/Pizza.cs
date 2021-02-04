@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace WpfApp1.Models
 {
+    // classe imbriquée utilisé par ma classe pizza
     public class Ingredient
     {
         private String nom;
@@ -31,6 +32,7 @@ namespace WpfApp1.Models
 
     }
 
+    // classe imbriquée utilisé par ma classe pizza
     public class PrixDetaille
     {
         private String nom;
@@ -54,6 +56,7 @@ namespace WpfApp1.Models
         }
 
     }
+
     public class Pizza
     {
         protected String nom;

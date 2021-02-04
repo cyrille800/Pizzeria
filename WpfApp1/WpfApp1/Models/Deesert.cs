@@ -8,11 +8,11 @@ namespace WpfApp1.Models
 {
     public class Dessert
     {
-        private String nom;
-        private String type;
-        private String image;
-        private Double prix;
-        private int id;
+        protected String nom;
+        protected String type;
+        protected String image;
+        protected Double prix;
+        protected int id;
 
 
         public String Nom

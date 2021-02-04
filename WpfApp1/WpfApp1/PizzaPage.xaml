@@ -46,6 +46,7 @@
                      TickPlacement="BottomRight" Maximum="100" Height="30" Width="198" ValueChanged="Slider_ValueChanged"/>
             <ListBox Height="25" Canvas.Left="39" Canvas.Top="291" Width="198"/>
             <TextBox Name="search"  Height="23" Canvas.Left="39" TextWrapping="Wrap" Text="" Canvas.Top="373" Width="198" TextChanged="TextBox_TextChanged"/>
+            <Button Content="Rechercher" Canvas.Left="87" Canvas.Top="434" Width="83" Click="Button_Click_1"/>
 
         </Canvas>
         <WebBrowser x:Name="wbMain" Panel.ZIndex="0" Source="pack://siteoforigin:,,,/pizzapage.html" LoadCompleted="loadCompletePagePizza" Width="1066" Height="464" Canvas.Top="188" Canvas.Left="267"/>

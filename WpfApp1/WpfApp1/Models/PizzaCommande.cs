@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WpfApp1.Models
 {
-    public class PizzaCommande : Pizza
+    public class PizzaCommande : Pizza, Iprix
     {
         private int qte;
 
@@ -45,6 +45,11 @@ namespace WpfApp1.Models
             lprix.Add(new PrixDetaille("vide", prix));
             this.Prix = lprix;
             this.qte = qte;
+        }
+
+        public double CalculprixTotal()
+        {
+            return prix.First().Prix * qte;
         }
     }
 }
