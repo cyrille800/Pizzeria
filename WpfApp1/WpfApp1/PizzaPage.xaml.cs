@@ -391,7 +391,13 @@ namespace WpfApp1
                 if (lP != null)
                 {
                     // cette fonction permet d'invoqué une méthode javascript appelé WriteFromExternals avec mon catalogue de pizzeria qui sera traité la bas
-                    wbMain.InvokeScript("sendDataToJavascript", json);
+                    try
+                    {
+                        wbMain.InvokeScript("sendDataToJavascript", json);
+                    }catch(Exception ex)
+                    {
+
+                    }
                     //
                 }
                 else
