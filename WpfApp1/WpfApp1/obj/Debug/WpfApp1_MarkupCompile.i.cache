@@ -4,17 +4,26 @@
 winexe
 C#
 .cs
-D:\cours\programmation poo avance\projet\UserPizzeria\WpfApp1\WpfApp1\obj\Debug\
+C:\Users\willi\OneDrive\Documents\Cours ESILV\A3\POO Avancée\Projet\UserPizzeria\WpfApp1\WpfApp1\obj\Debug\
 WpfApp1
 none
 false
 DEBUG;TRACE
+<<<<<<< Updated upstream
 D:\cours\programmation poo avance\projet\UserPizzeria\WpfApp1\WpfApp1\App.xaml
 81489726303
 
 32855684249
 18694287832
 gestion.xaml;GestionCommande.xaml;LoadPage.xaml;login.xaml;MainWindow.xaml;GestionIndex.xaml;PageHome.xaml;PizzaPage.xaml;
+=======
+C:\Users\willi\OneDrive\Documents\Cours ESILV\A3\POO Avancée\Projet\UserPizzeria\WpfApp1\WpfApp1\App.xaml
+5754383559
 
-False
+28772927980
+181434064746
+LoadPage.xaml;login.xaml;MainWindow.xaml;PageHome.xaml;PizzaPage.xaml;
+>>>>>>> Stashed changes
+
+True
 
