@@ -73,7 +73,7 @@ namespace WpfApp1
 
                             BitmapImage bi = new BitmapImage();
                             bi.BeginInit();
-                            bi.StreamSource = new MemoryStream(System.Convert.FromBase64String(login.generateCodeBarCommande(c).Replace("data:image/png;base64,", "")));
+                            bi.StreamSource = new MemoryStream(System.Convert.FromBase64String(Commande.generateCodeBarCommande(c).Replace("data:image/png;base64,", "")));
                             bi.EndInit();
 
                             Image imgs = new Image();
@@ -92,83 +92,19 @@ namespace WpfApp1
            }
             catch (Exception es)
             {
-                MessageBox.Show("vous devez saisir un numéro de telephone valide");
+                if (logins.Text == "admin")
+                {
+                    gestion page = new gestion();
+                    this.Close();
+                    page.Show();
+                }
+                else
+                {
+                    MessageBox.Show("vous devez saisir un numéro de telephone valide");
+                }
             }
 
         }
-
-        #region generate code bare
-        public static String generateCodeBarCommande(Commande c)
-        {
-            String lien = "https://qrcode.tec-it.com/en/Calendar";
-            String titre = "commande#002" + Convert.ToString(c.IdCommande);
-            String description = "";
-            description += " Nom du client : " + c.Client.Nom + ",";
-            description += " Prenom : " + c.Client.Prenom + ",";
-            description += " Telephone : " + c.Client.Numero + ",";
-            description += " Adresse  : " + c.Client.Adresse + ",";
-            description += " liste des pizzas  :  ";
-            c.PanierPizza.ForEach(x =>
-            {
-                description += ", " + x.Nom.ToUpper();
-            });
-
-            description += " liste des dessert  : ";
-            c.PanierDessert.ForEach(x =>
-            {
-                description += ", " + x.Nom.ToUpper();
-            });
-
-            String date_debut = c.DateAjout.ToString("MM/dd/yyyy");
-            String heure_debut = c.DateAjout.ToString("HH:mm:ss");
-
-            String date_fin = c.DateFin.ToString("MM/dd/yyyy");
-            String heure_fin = c.DateFin.ToString("HH:mm:ss");
-
-            #region configuration du navigateur 
-            ChromeOptions options = new ChromeOptions();
-            options.AddArgument("no-sandbox");
-            options.AddArgument("--window-position=-32000,-32000");
-            options.AddArgument("--headless");
-            ChromeDriverService service = ChromeDriverService.CreateDefaultService();
-            service.HideCommandPromptWindow = true;
-
-            ChromeDriver driver = new ChromeDriver(service, options, TimeSpan.FromMinutes(10));
-            driver.Manage().Timeouts().PageLoad.Add(System.TimeSpan.FromSeconds(30));
-            #endregion
-
-            // me permet d'accéder à la page
-            driver.Navigate().GoToUrl(lien);
-
-            IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
-
-            // je rempli les diffrents champs
-            jse.ExecuteScript("document.getElementById('Data_Summary').setAttribute('value', '"+ titre + "')");
-            jse.ExecuteScript("document.getElementById('Data_DateStart').setAttribute('value', '" + date_debut + "')");
-            jse.ExecuteScript("document.getElementById('Data_TimeStart').setAttribute('value', '" + heure_debut + "')");
-            jse.ExecuteScript("document.getElementById('Data_DateEnd').setAttribute('value', '" + date_fin + "')");
-            jse.ExecuteScript("document.getElementById('Data_TimeEnd').setAttribute('value', '" + heure_fin + "')");
-
-
-            IWebElement eltc = driver.FindElement(By.XPath("//*[@id='Data_Description']"));
-            eltc.SendKeys(" "+ description);
-
-            IWebElement elt = driver.FindElement(By.XPath("//*[@alt='QR Code']"));
-            String chainedebut = elt.GetAttribute("src");
-
-            // je génère le codebar
-            driver.FindElement(By.XPath("//*[@title='Refresh Barcode']")).Click();
-            // me permet de trouver un élément
-
-            new WebDriverWait(driver, new TimeSpan(0, 0, 5))
-            .Until(d => d.FindElement(By.XPath("//*[@alt='QR Code']")).GetAttribute("src") != chainedebut);
-            // me permet de trouver un élément
-            IWebElement elts = driver.FindElement(By.XPath("//*[@alt='QR Code']"));
-            String chaine = elts.GetAttribute("src");
-            return chaine;
-        }
-
-        #endregion
 
         private void ButtonCommandeLivre_Click(object sender, RoutedEventArgs e)
         {

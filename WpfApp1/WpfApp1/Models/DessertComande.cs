@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WpfApp1.Models
 {
-    public class DessertComande : Dessert
+    public class DessertComande : Dessert, Iprix
     {
         private int qte;
 
@@ -35,6 +35,11 @@ namespace WpfApp1.Models
         public DessertComande(Dessert p, int qte) : base(p.Nom, p.Type, p.Image, p.Prix, p.Id)
         {
             this.qte = qte;
+        }
+
+        public double CalculprixTotal()
+        {
+            return prix * qte;
         }
     }
 }

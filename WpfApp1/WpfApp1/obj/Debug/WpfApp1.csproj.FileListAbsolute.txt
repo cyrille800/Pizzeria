@@ -30,3 +30,9 @@ D:\cours\programmation poo avance\projet\UserPizzeria\WpfApp1\WpfApp1\obj\Debug\
 D:\cours\programmation poo avance\projet\UserPizzeria\WpfApp1\WpfApp1\obj\Debug\PageHome.baml
 D:\cours\programmation poo avance\projet\UserPizzeria\WpfApp1\WpfApp1\obj\Debug\login.g.cs
 D:\cours\programmation poo avance\projet\UserPizzeria\WpfApp1\WpfApp1\obj\Debug\login.baml
+D:\cours\programmation poo avance\projet\UserPizzeria\WpfApp1\WpfApp1\obj\Debug\gestion.g.cs
+D:\cours\programmation poo avance\projet\UserPizzeria\WpfApp1\WpfApp1\obj\Debug\gestion.baml
+D:\cours\programmation poo avance\projet\UserPizzeria\WpfApp1\WpfApp1\obj\Debug\GestionIndex.g.cs
+D:\cours\programmation poo avance\projet\UserPizzeria\WpfApp1\WpfApp1\obj\Debug\GestionIndex.baml
+D:\cours\programmation poo avance\projet\UserPizzeria\WpfApp1\WpfApp1\obj\Debug\GestionCommande.g.cs
+D:\cours\programmation poo avance\projet\UserPizzeria\WpfApp1\WpfApp1\obj\Debug\GestionCommande.baml

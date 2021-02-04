@@ -68,5 +68,6 @@ namespace WpfApp1.Models
         {
             catalogue.Add(p);
         }
+
     }
 }

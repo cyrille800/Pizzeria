@@ -341,7 +341,7 @@ namespace WpfApp1
             checkReloadPagePizza();
         }
 
-        // cette événement me permet de savoir la page est chargé en mémoire, ensuite j'envoie mes données
+        // cette événement me permet de savoir si la page est chargé en mémoire, ensuite j'envoie mes données
         private void loadCompletePagePizza(object sender, NavigationEventArgs e)
         {
             List<Pizzeria> lP = null;
@@ -511,15 +511,12 @@ namespace WpfApp1
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            filtrageFunction();
+            //vide
         }
 
         private void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            if(((Slider) sender).Value != CataloguePizzeria.PrixMaximal())
-            {
-                filtrageFunction();
-            }
+            //vide
         }
 
         private void filtrageFunction()
@@ -572,6 +569,10 @@ namespace WpfApp1
             wbMain.InvokeScript("sendDataToJavascript", json);
                 //
         }
-        
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            filtrageFunction();
+        }
     }
 }
