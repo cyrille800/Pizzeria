@@ -189,6 +189,9 @@ Sorry, this product is unavailable. Please choose a different combination.</p>
 
 
 
+        <div id="qrcode"></div>
+
+
         <section id="home-banners" class="l-section c-home-banners c-home-banners--2 l-section--container c-home-banners--top-margin">
 
 			<div class="c-home-banners__wrap">
@@ -209,8 +212,8 @@ PIZZAS PAGE</div>
 
 									<div class="c-home-banners__button-wrap">
 
-						<a class="c-home-banners__button" href="#" id="back">
- < Back</a>
+						<span class="c-home-banners__button" href="#" id="back" style="cursor:pointer;">
+ < Back</span>
 
 					</div>
 
@@ -235,9 +238,9 @@ DESSERT PAGE</div>
 
 									<div class="c-home-banners__button-wrap">
 
-						<a class="c-home-banners__button" href="#"  id="continuess">
+						<span class="c-home-banners__button" href="#"  id="continuess"  style="cursor:pointer;">
 Continue >
-</a>
+</span>
 
 					</div>
 
@@ -299,7 +302,7 @@ First name&nbsp;<abbr class="required" title="required">
 *</abbr>
 </label>
 <span class="woocommerce-input-wrapper">
-<input type="text" class="input-text " name="billing_first_name" id="billing_first_name" placeholder="" value="" autocomplete="given-name">
+<input type="text" id="nom" class="input-text " name="billing_first_name" id="billing_first_name" placeholder="" value="" autocomplete="given-name">
 </span>
 </p>
 <p class="form-row form-row-last validate-required" id="billing_last_name_field" data-priority="20">
@@ -308,7 +311,7 @@ Last name&nbsp;<abbr class="required" title="required">
 *</abbr>
 </label>
 <span class="woocommerce-input-wrapper">
-<input type="text" class="input-text " name="billing_last_name" id="billing_last_name" placeholder="" value="" autocomplete="family-name">
+<input type="text"  id="prenom" class="input-text " name="billing_last_name" id="billing_last_name" placeholder="" value="" autocomplete="family-name">
 </span>
 </p>
 <p class="form-row address-field validate-required form-row-wide" id="billing_address_1_field" data-priority="50">
@@ -317,7 +320,7 @@ Street address&nbsp;<abbr class="required" title="required">
 *</abbr>
 </label>
 <span class="woocommerce-input-wrapper">
-<input type="text" class="input-text " name="billing_address_1" id="billing_address_1" placeholder="House number and street name" value="" autocomplete="address-line1" data-placeholder="House number and street name">
+<input type="text"  id="adresse" class="input-text " name="billing_address_1" id="billing_address_1" placeholder="House number and street name" value="" autocomplete="address-line1" data-placeholder="House number and street name">
 </span>
 </p>
 
@@ -327,7 +330,7 @@ Phone&nbsp;<abbr class="required" title="required">
 *</abbr>
 </label>
 <span class="woocommerce-input-wrapper">
-<input type="tel" class="input-text " name="billing_phone" id="billing_phone" placeholder="" value="" autocomplete="tel">
+<input type="tel"  id="numero" class="input-text " name="billing_phone" id="billing_phone" placeholder="" value="" autocomplete="tel">
 </span>
 </p>
 </div>
@@ -417,7 +420,7 @@ Order notes&nbsp;<span class="optional">
         </div>
 
         
-        <button type="button" class="c-form__button c-cart__place-order-btn button alt" name="woocommerce_checkout_place_order" id="place_order" value="Place order" data-value="Place order">Place order</button>
+        <button type="button" id="validerpanier" class="c-form__button c-cart__place-order-btn button alt" name="woocommerce_checkout_place_order" id="place_order" value="Place order" data-value="Place order">Place order</button>
         
         <input type="hidden" id="woocommerce-process-checkout-nonce" name="woocommerce-process-checkout-nonce" value="73ac4caf46"><input type="hidden" name="_wp_http_referer" value="/foodz/demo2/?wc-ajax=update_order_review">		</div>
 </div>
@@ -440,12 +443,10 @@ Order notes&nbsp;<span class="optional">
 
 
     </body>
-
-
     <script
     src="https://code.jquery.com/jquery-3.5.1.slim.js"
     integrity="sha256-DrT5NfxfbHvMHux31Lkhxg42LY6of8TaYyK50jnxRnM="
-    crossorigin="anonymous">
+    crossorigin="anonymous"></script>
 </script>
 
 
@@ -474,6 +475,17 @@ Order notes&nbsp;<span class="optional">
            $("#continuess").click(function(){
             window.external.showDessertPage()
            })
+
+           $("#validerpanier").click(function(){
+                var nom = $("#nom").val();
+                var adresse = $("#adresse").val();
+                var prenom = $("#prenom").val();
+                var numero = $("#numero").val();
+
+                window.external.createCommane(nom,prenom,adresse,numero);
+                window.location = "terminer.html";
+           })
+           
         }) 
 
         </script>

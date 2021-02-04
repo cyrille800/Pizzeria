@@ -40,5 +40,16 @@
             <TextBlock x:Name="qte" Margin="5,1,1.8,-0.4" FontSize="9" Foreground="White" >0</TextBlock>
         </Border>
         <Label x:Name="prixPanierLabel" Content="$ 0" Canvas.Left="1166" Canvas.Top="70" Foreground="White" FontWeight="Bold"/>
+        <Button x:Name="loginButton" 
+                Background="Transparent"
+                Cursor="Hand"
+                BorderBrush="Transparent"
+                Style="{StaticResource btnBlue}" 
+                Content="" 
+                Click="Update_ClickLogin"
+                MouseEnter="Update_MouseEnterLogin" 
+                MouseLeave="Update_MouseLeaveLogin"
+                Canvas.Left="1141" Canvas.Top="8" Width="73" Height="39"/>
+        <Rectangle x:Name="fondHidden" Opacity="0.8" Fill="#000" Height="700" Stroke="Black" Canvas.Top="-4" Width="1311"/>
     </Canvas>
 </Page>

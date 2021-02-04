@@ -33,6 +33,8 @@ namespace WpfApp1
         public static int pagePanier = 0;
         public static bool ReloadPizzaPage = false;
         public static bool ReloadDeesertPage = false;
+        public static Panier panier;
+        public double valeurMaximalDUnProduit;
 
 
         #region me permet de faire une communication javascript vers WPF de mon compasant webBrowser
@@ -65,7 +67,7 @@ namespace WpfApp1
                 }
 
                 PizzaCommande pc = new PizzaCommande(p, Convert.ToInt32(qte));
-                Panier.AjouterPizzaCommande(pc);
+                panier.Panierpizza.AjouterPizzaPanier(pc);
             }
 
             public void AddPanierDessert(String id)
@@ -83,17 +85,17 @@ namespace WpfApp1
                 }
 
                 DessertComande pc = new DessertComande(p,1);
-                Panier.AjouterDessertCommande(pc);
+                panier.Panierdessert.AjouterDessertPanier(pc);
             }
 
             public void AddPanierModifierValeur(String id, String qte)
             {
-                Panier.Modifierpanier(Convert.ToInt32(id), Convert.ToInt32(qte));
+                panier.Panierpizza.ModifierpanierPizza(Convert.ToInt32(id), Convert.ToInt32(qte));
             }
 
             public void AddPanierModifierValeurDessert(String id, String qte)
             {
-                Panier.ModifierpanierDessert(Convert.ToInt32(id), Convert.ToInt32(qte));
+                panier.Panierdessert.ModifierpanierDessert(Convert.ToInt32(id), Convert.ToInt32(qte));
             }
 
             public void showPizzaPage()
@@ -104,6 +106,29 @@ namespace WpfApp1
             public void showDessertPage()
             {
                 ReloadDeesertPage = true;
+            }
+
+            public void createCommane(String nom, String prenom, String adresse, String numero)
+            {
+                long n = Convert.ToInt64(numero);
+                Livreur libre = Livreur.getLivreurLibre();
+                if(libre == null)
+                {
+                    ReloadDeesertPage = true;
+                    MessageBox.Show("il ya pas de livreur disponible, revenez apres");
+                }
+                else
+                {
+                    Client c = new Client(Client.getLastIdClient()+1, nom, prenom, n, adresse);
+                    Client.AjouterClient(c);
+                    Panier p = new Panier();
+                    Commande com = new Commande(Commande.getLastIdCommande()+1,libre.IdPersonne,DateTime.Now,"cuisine",DateTime.Now.AddHours(1),p.Panierpizza.getPanierPiizaUser(),p.Panierdessert.getPanierDessertUser(), libre, c);
+                    Commande.AjouterCommande(com);
+                    Livreur.ModifierStatutLivreur(libre.IdPersonne, "occupe");
+
+                    p.Panierdessert.viderpanier();
+                    p.Panierpizza.viderpanier();
+                }
             }
 
             public void startLoadPagePizza()
@@ -120,12 +145,12 @@ namespace WpfApp1
         #region fonction asynchrone utilisée pour verifier si le panier est modifier pour faire une mise à jour de l'affichage
         private async void check()
         {
-            int nbrPizzaPanier = Panier.getNombrePanier();
+            int nbrPizzaPanier = panier.getNombreElementDansPanier();
             if (nbrPizzaPanier != 0)
             {
                 qte.Text = Convert.ToString(nbrPizzaPanier);
-                prixPanierLabel.Content = "‎€ " + Convert.ToString(Panier.getPrixPanier());
-                prixPanierLabel_c.Content = "‎€ " + Convert.ToString(Panier.getPrixPanier());
+                prixPanierLabel.Content = "‎€ " + Convert.ToString(panier.getPrixPanier());
+                prixPanierLabel_c.Content = "‎€ " + Convert.ToString(panier.getPrixPanier());
 
                 qte.Visibility = Visibility.Visible;
                 prixPanierLabel.Visibility = Visibility.Visible;
@@ -206,8 +231,8 @@ namespace WpfApp1
         public void updateGraphiqueFonction(int i)
         {
             //ici je modifie graphique mon panier
-            List<PizzaCommande> LC = Panier.getPanierUser();
-            List<DessertComande> LD = Panier.getPanierDessertUser();
+            List<PizzaCommande> LC = panier.Panierpizza.getPanierPiizaUser();
+            List<DessertComande> LD = panier.Panierdessert.getPanierDessertUser();
 
             if(LD != null){
                 LD.ForEach(a =>
@@ -288,6 +313,7 @@ namespace WpfApp1
 
         public PizzaPage()
         {
+            panier = new Panier();
             helper = new ObjectForScriptingHelper();
 
             FileSystemWatcher fileSystemWatcher = new FileSystemWatcher();
@@ -304,6 +330,7 @@ namespace WpfApp1
 
             Cata = new CataloguePizzeria();
             InitializeComponent();
+            slValue.Value = CataloguePizzeria.PrixMaximal();
             panierUp.Visibility = Visibility.Hidden;
             panierDown.Visibility = Visibility.Hidden;
             updateGraphiqueFonction(0);
@@ -324,25 +351,30 @@ namespace WpfApp1
                 string json = r.ReadToEnd();
                 lP = JsonConvert.DeserializeObject<List<Pizzeria>>(json);
                 List<Pizzeria> lPC = new List<Pizzeria>();
+                
 
                 //permet de verifier ceux qui ont déja été choisi
                 foreach (Pizzeria p in lP)
                 {
+                    // permet de verifier les pizzas déja choisi
                     foreach (Pizza pizza in p.LPizza)
                     {
-                        PizzaCommande pizzaCommande = Panier.RechercherPizzaPanier(pizza.Id);
+                        PizzaCommande pizzaCommande = panier.Panierpizza.RechercherPizzaPanier(pizza.Id);
                         if (pizzaCommande != null)
                         {
-                                pizza.Nom = p.LPizza[pizza.Id].Nom + "||" + pizzaCommande.Qte + "||" + pizzaCommande.Prix[0].Nom;
+                            pizza.Nom = pizza.Nom +
+                                "||" + pizzaCommande.Qte +
+                                "||" + pizzaCommande.Prix[0].Nom;
                         }
                     }
 
+                    // permet de verifier les desserts déja choisi
                     foreach (Dessert dessert in p.LDessert)
                     {
-                        DessertComande dessertCommande = Panier.RechercherDesserPanier(dessert.Id);
+                        DessertComande dessertCommande = panier.Panierdessert.RechercherDesserPanier(dessert.Id);
                         if (dessertCommande != null)
                         {
-                            dessert.Nom = p.LPizza[dessert.Id].Nom + "||" + dessertCommande.Qte ;
+                            dessert.Nom = dessert.Nom + "||" + dessertCommande.Qte ;
                         }
                     }
 
@@ -351,7 +383,7 @@ namespace WpfApp1
 
                 json=JsonConvert.SerializeObject(lPC.ToArray());
 
-
+                Cata = new CataloguePizzeria();
                 foreach (Pizzeria p in lP)
                 {
                     Cata.AjouterPizzeria(p);
@@ -439,8 +471,8 @@ namespace WpfApp1
 
         private void PanierDown_Click(object sender, RoutedEventArgs e)
         {
-            List<PizzaCommande> LC = Panier.getPanierUser();
-            List<DessertComande> LD = Panier.getPanierDessertUser();
+            List<PizzaCommande> LC = panier.Panierpizza.getPanierPiizaUser();
+            List<DessertComande> LD = panier.Panierdessert.getPanierDessertUser();
             int o = 0;
             if (LC != null)
             {
@@ -476,5 +508,70 @@ namespace WpfApp1
             ((Button)sender).Background = Brushes.Transparent;
         }
         #endregion
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            filtrageFunction();
+        }
+
+        private void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            if(((Slider) sender).Value != CataloguePizzeria.PrixMaximal())
+            {
+                filtrageFunction();
+            }
+        }
+
+        private void filtrageFunction()
+        {
+            double prixSelectionne = slValue.Value;
+            String Recherche = "";
+            Recherche += search.Text;
+            List<Pizzeria> LFiltrer = new List<Pizzeria>();
+
+            // je vais utilisez les expressions lambda pour faire le filtrage
+            List<Pizzeria> LSC = Cata.Catalogue;
+
+            
+
+            #region elle me permet de faire le filtrage de ma liste
+            LSC.ForEach(pizzeria =>
+            {
+                Pizzeria pTmp = new Pizzeria();
+                pTmp.Emplacement = pizzeria.Emplacement;
+                pTmp.Nom = pizzeria.Nom;
+                pTmp.SiteWeb = pizzeria.SiteWeb;
+
+                pizzeria.LPizza.ForEach(pizza =>
+                {
+                    // verifier si elle contient le prix pour les pizza
+                    bool reponse = pizza.Prix.Exists(x => x.Prix <= prixSelectionne);
+                    
+                    if (pizza.Nom.Contains(Recherche.ToUpper()) == true && reponse == true)
+                    {
+                        pTmp.AjouterPizza(pizza);
+                    }
+                });
+
+                pizzeria.LDessert.ForEach(dessert =>
+                {
+                    // verifier si elle contient le prix pour les dessert
+                    if (dessert.Nom.Contains(Recherche.ToUpper()) == true && dessert.Prix<= prixSelectionne)
+                    {
+                        pTmp.AjouterDessert(dessert);
+                    }
+                });
+
+                LFiltrer.Add(pTmp);
+            });
+            #endregion
+
+            String json = JsonConvert.SerializeObject(LFiltrer.ToArray());
+
+            // cette fonction permet d'invoqué une méthode javascript appelé WriteFromExternals avec mon catalogue de pizzeria qui sera traité la bas
+            wbMain.InvokeScript("sendDataToJavascript", json);
+                //
+        }
+        
     }
 }

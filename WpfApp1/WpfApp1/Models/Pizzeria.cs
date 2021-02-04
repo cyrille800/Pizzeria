@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
@@ -90,7 +91,7 @@ namespace WpfApp1.Models
             {
                 if (d.Nom == p.Nom)
                 {
-                    return false;
+                    return true;
                 }
             }
             return false;
@@ -103,7 +104,7 @@ namespace WpfApp1.Models
             {
                 if (d.Nom == p.Nom)
                 {
-                    return false;
+                    return true;
                 }
             }
             return false;
@@ -219,8 +220,8 @@ namespace WpfApp1.Models
                             piz.Prix = prix;
                             piz.Type = type;
                             p.AjouterPizza(piz);
+                            pizzaActif++;
                         }
-                        pizzaActif++;
                     }
                 }
                 #endregion
@@ -262,8 +263,8 @@ namespace WpfApp1.Models
                             piz.Prix = Convert.ToDouble(ls[0]);
                             piz.Type = type;
                             p.AjouterDessert(piz);
+                            pizzaActif++;
                         }
-                        pizzaActif++;
                     }
                 }
                 #endregion
@@ -382,8 +383,8 @@ namespace WpfApp1.Models
                             piz.Prix = prix;
                             piz.Type = type;
                             p.AjouterPizza(piz);
+                            pizzaActif++;
                         }
-                        pizzaActif++;
                     }
                 }
                 #endregion
@@ -425,8 +426,8 @@ namespace WpfApp1.Models
                             piz.Prix = Convert.ToDouble(ls[0]);
                             piz.Type = type;
                             p.AjouterDessert(piz);
+                            pizzaActif++;
                         }
-                        pizzaActif++;
                     }
                 }
                 #endregion

@@ -1,0 +1,20 @@
+﻿<Window x:Class="WpfApp1.login"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp1"
+        mc:Ignorable="d"
+        Title="login" Height="450" Width="344.779"
+        Background="#1E7053"
+        WindowStartupLocation="CenterScreen"
+        Closing="DataWindow_Closing"  
+        ResizeMode="NoResize">
+    <Grid x:Name="plan">
+        <TextBox x:Name="logins" TextWrapping="Wrap" Text="" Margin="57,192,65.4,199"/>
+        <Button x:Name="connec" Content="Connect" HorizontalAlignment="Left" Margin="127,236,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
+        <Image x:Name="img" HorizontalAlignment="Left" Height="72" Source="https://www.iconpacks.net/icons/1/free-user-login-icon-305-thumb.png" Margin="127,115,0,0" VerticalAlignment="Top" Width="61"/>
+        <Button x:Name="buttonCommandeLivre" Content="Cliquez ici si la commande est livrée" HorizontalAlignment="Left" Margin="36,319,0,0" VerticalAlignment="Top" Width="256" Height="40" Click="ButtonCommandeLivre_Click"/>
+
+    </Grid>
+</Window>

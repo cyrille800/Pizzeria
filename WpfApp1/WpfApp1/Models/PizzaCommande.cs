@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WpfApp1.Models
 {
-    class PizzaCommande : Pizza
+    public class PizzaCommande : Pizza
     {
         private int qte;
 

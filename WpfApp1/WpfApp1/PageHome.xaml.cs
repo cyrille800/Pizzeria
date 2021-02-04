@@ -24,18 +24,20 @@ namespace WpfApp1
     /// </summary>
     public partial class PageHome : Page
     {
-
+        public static Panier panier;
         LoadPage loadPage;
 
         public PageHome()
         {
             InitializeComponent();
+            fondHidden.Visibility = Visibility.Hidden;
+            panier = new Panier();
             loadPage = null;
             List<Pizzeria> lP = null;
 
             // permet d'initialiser les valeurs d'affichages du panier
-            qte.Text = Convert.ToString(Panier.getNombrePanier());
-            prixPanierLabel.Content = "$ " + Convert.ToString(Panier.getPrixPanier());
+            qte.Text = Convert.ToString(panier.getNombreElementDansPanier());
+            prixPanierLabel.Content = "$ " + Convert.ToString(panier.getPrixPanier());
 
             // je stocke toutes mes informations sur les produits de type pizza dans un fichier appelé dataPizza.txt
             #region me permet de récupérer les pizzas que j'ai scrappé (Recolter)
@@ -60,6 +62,13 @@ namespace WpfApp1
             loadPage.Show();
         }
 
+        private void Update_ClickLogin(object sender, RoutedEventArgs e)
+        {
+            fondHidden.Visibility = Visibility.Visible;
+            login l = new login();
+            l.Show();
+        }
+
 
         #region me permet de faire des animations sur le boutton update
         private void Update_MouseEnter(object sender, MouseEventArgs e)
@@ -68,6 +77,19 @@ namespace WpfApp1
         }
 
         private void Update_MouseLeave(object sender, MouseEventArgs e)
+        {
+            ((Button)sender).Background = Brushes.Transparent;
+        }
+        #endregion
+
+        #region me permet de faire des animations sur le boutton login
+
+        private void Update_MouseEnterLogin(object sender, MouseEventArgs e)
+        {
+            ((Button)sender).Background = new SolidColorBrush(Color.FromArgb(36, 160, 36, 255));
+        }
+
+        private void Update_MouseLeaveLogin(object sender, MouseEventArgs e)
         {
             ((Button)sender).Background = Brushes.Transparent;
         }

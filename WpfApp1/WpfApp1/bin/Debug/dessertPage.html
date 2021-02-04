@@ -164,13 +164,13 @@ Sorry, this product is unavailable. Please choose a different combination.</p>
 
         function returnData(start){
             const obj = JSON.parse(json);
-            data="";
+            var data="";
              o = 0;
              setTimeout(function(){
                 for(var i= 0; i < obj.length; i++)
                 {
                     
-                    for(var j= 0; j < obj[i].LPizza.length; j++)
+                    for(var j= 0; j < obj[i].LDessert.length; j++)
                     {
                         fin = 0;
                         if(start==0){

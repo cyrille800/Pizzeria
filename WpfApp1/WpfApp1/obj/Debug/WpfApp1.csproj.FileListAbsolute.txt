@@ -28,3 +28,5 @@ D:\cours\programmation poo avance\projet\UserPizzeria\WpfApp1\WpfApp1\obj\Debug\
 D:\cours\programmation poo avance\projet\UserPizzeria\WpfApp1\WpfApp1\obj\Debug\PizzaPage.baml
 D:\cours\programmation poo avance\projet\UserPizzeria\WpfApp1\WpfApp1\obj\Debug\PageHome.g.cs
 D:\cours\programmation poo avance\projet\UserPizzeria\WpfApp1\WpfApp1\obj\Debug\PageHome.baml
+D:\cours\programmation poo avance\projet\UserPizzeria\WpfApp1\WpfApp1\obj\Debug\login.g.cs
+D:\cours\programmation poo avance\projet\UserPizzeria\WpfApp1\WpfApp1\obj\Debug\login.baml
