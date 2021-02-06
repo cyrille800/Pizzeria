@@ -15,35 +15,41 @@ namespace WpfApp1.Models
         public static double PrixMaximal()
         {
             List<Pizzeria> l = new List<Pizzeria>();
-            using (StreamReader r = new StreamReader("dataPizza.txt"))
-            {
-                string json = r.ReadToEnd();
-                l = JsonConvert.DeserializeObject<List<Pizzeria>>(json);
 
-                double prixInf = 0;
-                foreach (Pizzeria p in l)
+            string curFile = @"dataPizza.txt";
+            if (File.Exists(curFile) == true)
+            {
+                using (StreamReader r = new StreamReader("dataPizza.txt"))
                 {
-                    foreach (Pizza pizza in p.LPizza)
+                    string json = r.ReadToEnd();
+                    l = JsonConvert.DeserializeObject<List<Pizzeria>>(json);
+
+                    double prixInf = 0;
+                    foreach (Pizzeria p in l)
                     {
-                        foreach (PrixDetaille prix in pizza.Prix)
+                        foreach (Pizza pizza in p.LPizza)
                         {
-                            if (prix.Prix > prixInf)
+                            foreach (PrixDetaille prix in pizza.Prix)
                             {
-                                prixInf = prix.Prix;
+                                if (prix.Prix > prixInf)
+                                {
+                                    prixInf = prix.Prix;
+                                }
+                            }
+                        }
+
+                        foreach (Dessert dessert in p.LDessert)
+                        {
+                            if (dessert.Prix > prixInf)
+                            {
+                                prixInf = dessert.Prix;
                             }
                         }
                     }
-
-                    foreach (Dessert dessert in p.LDessert)
-                    {
-                        if (dessert.Prix > prixInf)
-                        {
-                            prixInf = dessert.Prix;
-                        }
-                    }
+                    return prixInf;
                 }
-                return prixInf;
             }
+            return 0;
         }
 
         public List<Pizzeria> Catalogue

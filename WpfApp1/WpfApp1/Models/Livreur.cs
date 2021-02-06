@@ -120,6 +120,7 @@ namespace WpfApp1.Models
             }
             else
             {
+                Lp.Reverse();
                 return Lp.Find( a => a.statut == "libre");
             }
         }

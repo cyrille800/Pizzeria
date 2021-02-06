@@ -346,66 +346,74 @@ namespace WpfApp1
         private void loadCompletePagePizza(object sender, NavigationEventArgs e)
         {
             List<Pizzeria> lP = null;
-
-            using (StreamReader r = new StreamReader("dataPizza.txt"))
+            string curFile = @"dataPizza.txt";
+            if (File.Exists(curFile) == true)
             {
-                string json = r.ReadToEnd();
-                lP = JsonConvert.DeserializeObject<List<Pizzeria>>(json);
-                List<Pizzeria> lPC = new List<Pizzeria>();
-                
-
-                //permet de verifier ceux qui ont déja été choisi
-                foreach (Pizzeria p in lP)
+                using (StreamReader r = new StreamReader("dataPizza.txt"))
                 {
-                    // permet de verifier les pizzas déja choisi
-                    foreach (Pizza pizza in p.LPizza)
+                    string json = r.ReadToEnd();
+                    lP = JsonConvert.DeserializeObject<List<Pizzeria>>(json);
+                    List<Pizzeria> lPC = new List<Pizzeria>();
+
+
+                    //permet de verifier ceux qui ont déja été choisi
+                    foreach (Pizzeria p in lP)
                     {
-                        PizzaCommande pizzaCommande = panier.Panierpizza.RechercherPizzaPanier(pizza.Id);
-                        if (pizzaCommande != null)
+                        // permet de verifier les pizzas déja choisi
+                        foreach (Pizza pizza in p.LPizza)
                         {
-                            pizza.Nom = pizza.Nom +
-                                "||" + pizzaCommande.Qte +
-                                "||" + pizzaCommande.Prix[0].Nom;
+                            PizzaCommande pizzaCommande = panier.Panierpizza.RechercherPizzaPanier(pizza.Id);
+                            if (pizzaCommande != null)
+                            {
+                                pizza.Nom = pizza.Nom +
+                                    "||" + pizzaCommande.Qte +
+                                    "||" + pizzaCommande.Prix[0].Nom;
+                            }
                         }
-                    }
 
-                    // permet de verifier les desserts déja choisi
-                    foreach (Dessert dessert in p.LDessert)
-                    {
-                        DessertComande dessertCommande = panier.Panierdessert.RechercherDesserPanier(dessert.Id);
-                        if (dessertCommande != null)
+                        // permet de verifier les desserts déja choisi
+                        foreach (Dessert dessert in p.LDessert)
                         {
-                            dessert.Nom = dessert.Nom + "||" + dessertCommande.Qte ;
+                            DessertComande dessertCommande = panier.Panierdessert.RechercherDesserPanier(dessert.Id);
+                            if (dessertCommande != null)
+                            {
+                                dessert.Nom = dessert.Nom + "||" + dessertCommande.Qte;
+                            }
                         }
+
+                        lPC.Add(p);
                     }
 
-                    lPC.Add(p);
-                }
+                    json = JsonConvert.SerializeObject(lPC.ToArray());
 
-                json=JsonConvert.SerializeObject(lPC.ToArray());
-
-                Cata = new CataloguePizzeria();
-                foreach (Pizzeria p in lP)
-                {
-                    Cata.AjouterPizzeria(p);
-                }
-                if (lP != null)
-                {
-                    // cette fonction permet d'invoqué une méthode javascript appelé WriteFromExternals avec mon catalogue de pizzeria qui sera traité la bas
-                    try
+                    Cata = new CataloguePizzeria();
+                    foreach (Pizzeria p in lP)
                     {
-                        wbMain.InvokeScript("sendDataToJavascript", json);
-                    }catch(Exception ex)
-                    {
-
+                        Cata.AjouterPizzeria(p);
                     }
-                    //
-                }
-                else
-                {
-                    MessageBox.Show("click on the update button of the main interface to update the program");
-                }
+                    if (lP != null)
+                    {
+                        // cette fonction permet d'invoqué une méthode javascript appelé WriteFromExternals avec mon catalogue de pizzeria qui sera traité la bas
+                        try
+                        {
+                            wbMain.InvokeScript("sendDataToJavascript", json);
+                        }
+                        catch (Exception ex)
+                        {
 
+                        }
+                        //
+                    }
+                    else
+                    {
+                        MessageBox.Show("click on the update button of the main interface to update the program");
+                    }
+
+                }
+            }
+            else
+            {
+                MessageBox.Show("vous devez faire la mise à jour");
             }
         }
 
