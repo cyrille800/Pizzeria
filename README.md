@@ -51,6 +51,4 @@ Installation du projet
 Lors du premier lancement du projet sur votre ordinateur, vous devez cliquer sur le buton update de la page index, il va me permettre de mettre à jour notre catalogue de pizzeria, car initialement il n’existe pas, pour des raisons d’autorisation de système. 
  
 
-Vous devez également désactiver votre Avast, temporairement, car mes scripts javascript exécuté dans le composant WebBrowser seront bloqué par Avast.  
-
-Nous avons bien des choses à dire pour notre projet, mais le nombre maximal de pages est de 4.
+Vous devez également désactiver votre Avast, temporairement, car mes scripts javascript exécuté dans le composant WebBrowser seront bloqué par Avast.
