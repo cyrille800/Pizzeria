@@ -283,7 +283,7 @@ namespace WpfApp1.Models
         {
             Pizzeria p = new Pizzeria();
             p.Nom = "Allo pizza";
-            p.siteWeb = "https://www.allopizza94.com/index";
+            p.siteWeb = "https://www.allopizza94.com/";
             double[] ki = new double[2] { 48.789560, 2.449830 };
             p.Emplacement = ki;
 
